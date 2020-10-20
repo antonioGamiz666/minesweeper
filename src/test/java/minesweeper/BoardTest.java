@@ -20,8 +20,18 @@ public class BoardTest {
 	public void testInitMines() {
 		Board testboard1 = new Board();
 		int b[][] = new int[8][8];
-		testboard1.initMines(10, b);
+		int mines=0;
+		b = testboard1.initMines(10, b);
 		//Buscar si hay 10 minas
+		for(int i=0; i < 8; i++)
+		{
+			for(int j=0; j < 8; j++) {
+				if(b[i][j]==5) {
+					mines = mines+1;
+				}
+			}
+		}
+		assertEquals(mines,10);
 		//Mirar si hay un maximo de 3 minas por fila
 	}
 

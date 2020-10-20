@@ -83,14 +83,15 @@ public class Board {
 				x++;
 			}
 			else {
-				if(number_Mines_left == 2) {
-					Matrix_mines[x][0] = Mine_value;
-					Matrix_mines[x][7] = Mine_value;
-				}else { 
-					if(number_Mines_left == 1) {
-						Matrix_mines[x][3] = Mine_value;
+				
+					while(number_Mines_left > 0){
+						int z=0;
+						if(Matrix_mines[x][z]!=5) {
+							Matrix_mines[x][z] = Mine_value;
+							number_Mines_left = number_Mines_left - 1;
+						}
 					}
-				}
+					
 			}
 			
 			
@@ -103,7 +104,7 @@ public class Board {
 		//de minas que vaya a a tener la fila
 		
 		
-		return null;
+		return Matrix_mines;
 		
 	}
 
