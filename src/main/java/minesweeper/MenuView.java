@@ -1,5 +1,5 @@
 package minesweeper;
 
-public class Mines {
+public class MenuView {
 
 }

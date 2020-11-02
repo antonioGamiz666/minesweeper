@@ -1,5 +1,5 @@
 package minesweeper;
 
-public class Score {
+public class GameView {
 
 }

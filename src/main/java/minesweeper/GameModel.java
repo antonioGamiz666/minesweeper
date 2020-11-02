@@ -1,5 +1,5 @@
 package minesweeper;
 
-public class Menu {
+public class GameModel {
 
 }
