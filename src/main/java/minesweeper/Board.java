@@ -5,13 +5,27 @@ import java.util.Random;
 public class Board {
 	
 
+	private int[][] board;
 	
 	
 	
-	private final int NUM_ROWS = 8;
-	private final int NUM_COLUMNS = 8;
+	private int num_rows;
+	private int num_columns;
 
-	private final int NUM_MINES = 10;
+	private int num_mines;
+	
+	private final int LVL1_ROWS = 8;
+	private final int LVL1_COLS = 8;
+	private final int LVL1_MINES = 10;
+	
+	private final int LVL2_ROWS = 16;
+	private final int LVL2_COLS = 16;
+	private final int LVL2_MINES = 40;
+
+	private final int LVL3_ROWS = 16;
+	private final int LVL3_COLS = 30;
+	private final int LVL3_MINES = 99;
+	
 	
 	private final int Empty_cell_value = 0;
 	private final int Score_1_value = 1;
@@ -26,6 +40,67 @@ public class Board {
 	
 	private final int Flag_value = 4;
 	
+	public void initMInes2() {
+		//We have a matrix columns x row, generate 2 random
+		//1 random for X and one for Y and generate until we place all the mines
+		
+		
+		int number_Mines_left = this.num_mines;		
+		
+		//Sacar valor 0-3 para poner X minas en esa fila y ir restando al maximo de minas
+		//Podriamos por ejemplo saltarnos la 3 fila y la 6 o asi
+		while(number_Mines_left > 0 ) {//Crear funcion aparte
+
+			//int y=0;
+			int rand_mines = 0;
+				
+			int posX = getRandomInteger(0, this.num_rows - 1);
+			int posY = getRandomInteger(0, this.num_columns - 1);
+			if(board[posX][posY] != Mine_value) {
+				board[posX][posY] = Mine_value;
+				number_Mines_left--;
+			}
+		
+
+		}
+	}
+	
+	Board(int level){
+		
+		switch(level) {
+		
+			case 1:
+				this.num_rows = LVL1_ROWS;
+				this.num_columns = LVL1_COLS;
+				this.num_mines = LVL1_MINES;
+				break;
+				
+			case 2:
+				this.num_rows = LVL2_ROWS;
+				this.num_columns = LVL2_COLS;
+				this.num_mines = LVL2_MINES;
+				break;
+				
+			case 3:
+				this.num_rows = LVL3_ROWS;
+				this.num_columns = LVL3_COLS;
+				this.num_mines = LVL3_MINES;
+				break;
+		
+		};
+
+		
+		this.board = new int[num_rows][num_columns];
+		this.initMInes2();
+		//this.initBoard();
+	}
+	
+	public int[][] getBoard(){
+		return this.board;
+	}
+	
+	
+	
 	public static int getRandomInteger(int min, int max) {
 		
 		Random ran = new Random();
@@ -36,17 +111,21 @@ public class Board {
 	public int[][] initBoard(int row, int col) {
 		int Matrix_board[][] = new int[row][col];
 		
+		
 	
 		return Matrix_board;
 	}
 	
 	public int[][] initScores(int numScores_1, int numScores_2, int numScores_3) {
-		int Matrix_scores[][] = new int[NUM_ROWS][NUM_COLUMNS];
+		//int Matrix_scores[][] = new int[NUM_ROWS][NUM_COLUMNS];
 		
 		
 		return null;
 		
 	}
+	
+	
+	/*
 	
 	public int[][] initMines(int numMines, int m[][]) {
 		
@@ -108,5 +187,5 @@ public class Board {
 		
 	}
 
-
+*/
 }
