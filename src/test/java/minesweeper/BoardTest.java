@@ -8,15 +8,23 @@ public class BoardTest {
 
 	@Test
 	public void testInitBoard() {
-		Board testboard = new Board(1);
-		int b[][] = testboard.getBoard();
-		//int[][] board_init = testboard.initBoard(8,8);
-		//assertEquals(board_init,b);
+		Board testboard = new Board(1); //8x8
 		
+		int[][] b = new int[8][8];
+		int[][] c = new int[8][8];
+		b[0][0] = testboard.Mine_value;
+		b[1][1] = testboard.Mine_value;
 		
+		testboard.setBoard(b);
+		testboard.initBoard();
+		c = testboard.getBoard();
+		
+		assertEquals(c[0][1], 2);
+		assertEquals(c[2][2], 1);
+		assertEquals(c[5][5], 0);
 	}
 	
-	@Test
+	//@Test
 	public void testInitMines() {
 		Board testboard1 = new Board(1);
 		int m[][] = testboard1.getBoard();
