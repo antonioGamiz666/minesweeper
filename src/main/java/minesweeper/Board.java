@@ -36,7 +36,7 @@ public class Board {
 	private final int number_Score_2 = 12;
 	private final int number_Score_3 = 8;
 	
-	private final int Mine_value = 5;
+	public final int Mine_value = 9;
 	
 	private final int Flag_value = 4;
 	
@@ -65,52 +65,170 @@ public class Board {
 		}
 	}
 	
+	private int checkRight(int posX, int posY) {
+		if(this.board[posX][posY+1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkLeft(int posX, int posY) {
+		if(this.board[posX][posY-1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkTop(int posX, int posY) {
+		if(this.board[posX-1][posY] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkBottom(int posX, int posY) {
+		if(this.board[posX+1][posY] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkTopRight(int posX, int posY) {
+		if(this.board[posX-1][posY+1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkTopLeft(int posX, int posY) {
+		if(this.board[posX-1][posY-1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkBottomRight(int posX, int posY) {
+		if(this.board[posX+1][posY+1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int checkBottomLeft(int posX, int posY) {
+		if(this.board[posX+1][posY-1] == this.Mine_value)
+			return 1;
+		else
+			return 0;
+	}
+	
+	private int getMinesAdjacent(int sample, int posX, int posY) {
+		int value = 0;
+		switch(sample) {
+			case 0: // top left corner
+				value += this.checkRight(posX, posY);
+				value += this.checkBottom(posX, posY);
+				value += this.checkBottomRight(posX, posY);
+				break;
+			case 1: // top right corner
+				value += this.checkLeft(posX, posY);
+				value += this.checkBottom(posX, posY);
+				value += this.checkBottomLeft(posX, posY);
+				break;
+			case 2: // bottom left corner
+				value += this.checkRight(posX, posY);
+				value += this.checkTop(posX, posY);
+				value += this.checkTopRight(posX, posY);
+				break;
+			case 3: // bottom right corner
+				value += this.checkLeft(posX, posY);
+				value += this.checkTop(posX, posY);
+				value += this.checkTopLeft(posX, posY);
+				break;
+			case 4: // first row (without corners)
+				value += this.checkLeft(posX, posY);
+				value += this.checkRight(posX, posY);
+				value += this.checkBottomRight(posX, posY);
+				value += this.checkBottomLeft(posX, posY);
+				value += this.checkBottom(posX, posY);
+				break;
+			case 5: // last row (without corners)
+				value += this.checkLeft(posX, posY);
+				value += this.checkRight(posX, posY);
+				value += this.checkTopRight(posX, posY);
+				value += this.checkTopLeft(posX, posY);
+				value += this.checkTop(posX, posY);
+				break;
+			case 6: // first column (without corners)
+				value += this.checkTop(posX, posY);
+				value += this.checkBottom(posX, posY);
+				value += this.checkTopRight(posX, posY);
+				value += this.checkBottomRight(posX, posY);
+				value += this.checkRight(posX, posY);
+				break;
+			case 7: // last column (without corners)
+				value += this.checkTop(posX, posY);
+				value += this.checkBottom(posX, posY);
+				value += this.checkTopLeft(posX, posY);
+				value += this.checkBottomLeft(posX, posY);
+				value += this.checkLeft(posX, posY);
+				break;
+			case 8: // mid board (check all positions)
+				value += this.checkTop(posX, posY);
+				value += this.checkBottom(posX, posY);
+				value += this.checkLeft(posX, posY);
+				value += this.checkRight(posX, posY);
+				value += this.checkTopLeft(posX, posY);
+				value += this.checkBottomLeft(posX, posY);
+				value += this.checkTopRight(posX, posY);
+				value += this.checkBottomRight(posX, posY);
+				break;
+		}
+		return value;
+	}
+	
 	public void initBoard() {
-				
-		for(int i = 0; i < this.num_rows; i++) {
-			for(int j = 0; i < this.num_columns; j++) {
-				if( i == 0 ) { //primera fila
-					if( j == 0 ) {
-						//esquina superior izquierda
-						this.board[i][j] = 1;
+		
+		for(int i = 0; i < (this.num_rows); i++) {
+			for(int j = 0; j < (this.num_columns); j++) {
+				if( this.board[i][j] != this.Mine_value ) {
+					if( i == 0 ) { //primera fila
+						if( j == 0 ) {
+							//esquina superior izquierda
+							this.board[i][j] = this.getMinesAdjacent(0, i , j);
+						} else if(j == this.num_columns - 1) {
+							//esquina superior derecha
+							this.board[i][j] = this.getMinesAdjacent(1, i , j);
+						} else { 
+							//fila de arriba
+							this.board[i][j] = this.getMinesAdjacent(4, i , j);
+						}
+					} else if(i == this.num_rows - 1) { //ultima fila
+						if( j == 0 ) {
+							//esquina inferior izquierda
+							this.board[i][j] = this.getMinesAdjacent(2, i , j);
+						} else if(j == this.num_columns - 1) {
+							//esquina inferior derecha
+							this.board[i][j] = this.getMinesAdjacent(3, i , j);
+						} else { 
+							//fila de abajo
+							this.board[i][j] = this.getMinesAdjacent(5, i , j);
+						}
+					} else if(j == 0) {
+						// primera columna
+						this.board[i][j] = this.getMinesAdjacent(6, i , j);
 					} else if(j == this.num_columns - 1) {
-						//esquina superior derecha
-						this.board[i][j] = 2;
-					} else { 
-						//fila de arriba
-						this.board[i][j] = 7;
+						//ultima columna
+						this.board[i][j] = this.getMinesAdjacent(7, i , j);
+					} else {
+						//en medio del tablero, comprobar todas las posiciones
+						this.board[i][j] = this.getMinesAdjacent(8, i , j);
 					}
-				} else if(i == this.num_rows - 1) { //ultima fila
-					if( j == 0 ) {
-						//esquina inferior izquierda
-						this.board[i][j] = 3;
-					} else if(j == this.num_columns - 1) {
-						//esquina inferior derecha
-						this.board[i][j] = 4;
-					} else { 
-						//fila de abajo
-						this.board[i][j] = 6;
-					}
-				} else if(j == 0) {
-					// primera columna
-					this.board[i][j] = 5;
-				} else if(j == this.num_columns - 1) {
-					//ultima columna
-					this.board[i][j] = 8;
-				} else {
-					//en medio del tablero, comprobar todas las posiciones
-					this.board[i][j] = 9;
 				}
 			}
 		}
 	}
-	public int getAdjacents(int posX, int posY) {
-		
-		
-		
-		
-		return 0;
-	}
+	
+	
 	Board(int level){
 		
 		switch(level) {
@@ -138,13 +256,17 @@ public class Board {
 		
 		this.board = new int[num_rows][num_columns];
 		this.initMines();
-		//this.initBoard();
+		this.initBoard();
 	}
 	
 	public int[][] getBoard(){
 		return this.board;
 	}
 	
+	public int setBoard(int[][] b) {
+		this.board  = b;
+		return 0;
+	}
 	
 	
 	public static int getRandomInteger(int min, int max) {
