@@ -40,7 +40,7 @@ public class Board {
 	
 	private final int Flag_value = 4;
 	
-	public void initMInes2() {
+	public void initMines() {
 		//We have a matrix columns x row, generate 2 random
 		//1 random for X and one for Y and generate until we place all the mines
 		
@@ -64,6 +64,47 @@ public class Board {
 
 		}
 	}
+	
+	public void initBoard() {
+				
+		for(int i = 0; i < (this.num_rows); i++) {
+			for(int j = 0; i < (this.num_columns); j++) {
+				if( i == 0 ) { //primera fila
+					if( j == 0 ) {
+						//esquina superior izquierda
+						this.board[i][j] = 1;
+					} else if(j == this.num_columns) {
+						//esquina superior derecha
+						this.board[i][j] = 2;
+					} else { 
+						//fila de arriba
+						this.board[i][j] = 7;
+					}
+				} else if(i == this.num_rows - 1) { //ultima fila
+					if( j == 0 ) {
+						//esquina inferior izquierda
+						this.board[i][j] = 3;
+					} else if(j == this.num_columns) {
+						//esquina inferior derecha
+						this.board[i][j] = 4;
+					} else { 
+						//fila de abajo
+						this.board[i][j] = 6;
+					}
+				} else if(j == 0) {
+					// primera columna
+					this.board[i][j] = 5;
+				} else if(j == this.num_columns) {
+					//ultima columna
+					this.board[i][j] = 8;
+				} else {
+					//en medio del tablero, comprobar todas las posiciones
+					this.board[i][j] = 9;
+				}
+			}
+		}
+	}
+		
 	
 	Board(int level){
 		
@@ -91,8 +132,8 @@ public class Board {
 
 		
 		this.board = new int[num_rows][num_columns];
-		this.initMInes2();
-		//this.initBoard();
+		//this.initMines();
+		this.initBoard();
 	}
 	
 	public int[][] getBoard(){
