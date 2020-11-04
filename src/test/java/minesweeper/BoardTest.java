@@ -56,7 +56,7 @@ public class BoardTest {
 		assertEquals(mines2,99);
 	}
 
-	//@Test
+	@Test
 	public void testInitBoard() {
 		Board testboard = new Board(1);
 		int b[][] = testboard.getBoard();
