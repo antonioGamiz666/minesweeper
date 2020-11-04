@@ -67,13 +67,13 @@ public class Board {
 	
 	public void initBoard() {
 				
-		for(int i = 0; i < (this.num_rows); i++) {
-			for(int j = 0; i < (this.num_columns); j++) {
+		for(int i = 0; i < this.num_rows; i++) {
+			for(int j = 0; i < this.num_columns; j++) {
 				if( i == 0 ) { //primera fila
 					if( j == 0 ) {
 						//esquina superior izquierda
 						this.board[i][j] = 1;
-					} else if(j == this.num_columns) {
+					} else if(j == this.num_columns - 1) {
 						//esquina superior derecha
 						this.board[i][j] = 2;
 					} else { 
@@ -84,7 +84,7 @@ public class Board {
 					if( j == 0 ) {
 						//esquina inferior izquierda
 						this.board[i][j] = 3;
-					} else if(j == this.num_columns) {
+					} else if(j == this.num_columns - 1) {
 						//esquina inferior derecha
 						this.board[i][j] = 4;
 					} else { 
@@ -94,7 +94,7 @@ public class Board {
 				} else if(j == 0) {
 					// primera columna
 					this.board[i][j] = 5;
-				} else if(j == this.num_columns) {
+				} else if(j == this.num_columns - 1) {
 					//ultima columna
 					this.board[i][j] = 8;
 				} else {
@@ -104,8 +104,21 @@ public class Board {
 			}
 		}
 	}
+	/*
+	public void initBoard2() {
 		
-	
+		for (int i = 0; i < this.num_rows; i++) {
+			for (int j = 0; j < this.num_columns; j++)
+			{
+				int posXminus1;
+				int posXplus1;
+				int pos
+			}
+			
+		}			
+	}
+		
+	*/
 	Board(int level){
 		
 		switch(level) {
@@ -132,7 +145,7 @@ public class Board {
 
 		
 		this.board = new int[num_rows][num_columns];
-		//this.initMines();
+		this.initMines();
 		this.initBoard();
 	}
 	
