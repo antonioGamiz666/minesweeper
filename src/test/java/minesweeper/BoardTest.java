@@ -72,15 +72,6 @@ public class BoardTest {
 		assertEquals(mines2,99);
 	}
 
-	@Test
-	public void testInitBoard() {
-		Board testboard = new Board(1);
-		int b[][] = testboard.getBoard();
-		
-		//int[][] board_init = testboard.initBoard(8,8);
-		//assertEquals(board_init,b);
-		
-		
-	}
+	
 
 }
