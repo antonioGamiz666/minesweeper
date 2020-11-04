@@ -104,21 +104,13 @@ public class Board {
 			}
 		}
 	}
-	/*
-	public void initBoard2() {
+	public int getAdjacents(int posX, int posY) {
 		
-		for (int i = 0; i < this.num_rows; i++) {
-			for (int j = 0; j < this.num_columns; j++)
-			{
-				int posXminus1;
-				int posXplus1;
-				int pos
-			}
-			
-		}			
+		
+		
+		
+		return 0;
 	}
-		
-	*/
 	Board(int level){
 		
 		switch(level) {
@@ -146,7 +138,7 @@ public class Board {
 		
 		this.board = new int[num_rows][num_columns];
 		this.initMines();
-		this.initBoard();
+		//this.initBoard();
 	}
 	
 	public int[][] getBoard(){
