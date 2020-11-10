@@ -1,7 +1,7 @@
 package minesweeper;
 
 import static org.junit.Assert.*;
-
+import java.util.Arrays;
 
 
 import org.junit.Test;
@@ -12,6 +12,7 @@ public class BoardTest {
 	public void testInitBoard() {//We should test the LVL value we give to the Board constructor
 		Board testboard = new Board(1); //8x8
 		
+		//----TDD TESTS
 		int[][] b = new int[8][8];
 		int[][] c = new int[8][8];
 		b[0][0] = testboard.Mine_value;
@@ -24,6 +25,51 @@ public class BoardTest {
 		assertEquals(c[0][1], 2);
 		assertEquals(c[2][2], 1);
 		assertEquals(c[5][5], 0);
+		//TDD TESTS----
+		
+		
+		//----Equivalence partitioning
+		int lvl1_valid_dim = 8;
+		Board testboardlvl1 = new Board(1);
+		int[][] testdimlvl1 = new int[8][8];
+		//Do a getSize for the board matrix then make an assert equals
+		int lvl1_invalid_lower = 7;
+		int lvl1_invalid_higher = 9;
+		//assertTrue("Dimension for lvl1 matrix should be 8x8 instead of " + getSize, (getsize <= lvl1_invalid_lower) || ( getsize >= lvl1_invalid_higher));
+		
+		int lvl2_valid_dim = 16;
+		Board testboardlvl2 = new Board(2);
+		int[][] testdimlvl2 = new int[16][16];
+		//Do a getSize for the board matrix then make an assert equals
+		int lvl2_invalid_lower = 15;
+		int lvl2_invalid_higher = 17;
+		//assertTrue("Dimension for lvl2 matrix should be 16x16 instead of " + getSize, (getsize <= lvl2_invalid_lower) || ( getsize >= lvl2_invalid_higher));
+
+		
+		
+		int lvl3_valid_row = 16;
+		int lvl3_valid_col = 30;
+		Board testboardlvl3 = new Board(2);
+		int[][] testdimlvl3 = new int[16][30];
+		//Do a getSize for the board matrix then make an assert equals	
+		int lvl1_invalid_lower_row = 15;
+		int lvl1_invalid_higher_row = 17;
+		//assertTrue("Dimension for lvl3 matrix should be 16x30 instead of " + getSize, (getsize <= lvl3_invalid_lower_row) || ( getsize >= lvl3_invalid_higher_row));
+		int lvl1_invalid_lower_col = 39;
+		int lvl1_invalid_higher_col = 41;
+		//assertTrue("Dimension for lvl3 matrix should be 16x30 instead of " + getSize, (getsize <= lvl3_invalid_lower_col) || ( getsize >= lvl3_invalid_higher_col));
+		
+		
+		
+		
+		//Equivalence partitioning----
+		
+		
+		//----Limit values
+		
+		
+		
+		//Limit values----
 	}
 	
 	@Test
