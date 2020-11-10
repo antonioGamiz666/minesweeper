@@ -44,7 +44,6 @@ public class Board {
 		//We have a matrix columns x row, generate 2 random
 		//1 random for X and one for Y and generate until we place all the mines
 		
-		
 		int number_Mines_left = this.num_mines;		
 		
 		//Sacar valor 0-3 para poner X minas en esa fila y ir restando al maximo de minas
