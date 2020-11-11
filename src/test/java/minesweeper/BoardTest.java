@@ -186,7 +186,7 @@ public class BoardTest {
 	}
 		 
 	
-	//@Test
+	@Test
 	public void testInitMines() {
 		//----TDD TESTS
 		Board testboard1 = new Board(1);
@@ -213,7 +213,7 @@ public class BoardTest {
 		{
 			for(int y=0; y < 16; y++) {
 				if(m2[x][y]==9) {
-					mines2 = mines1+1;
+					mines2 = mines2+1;
 				}
 			}
 		}
@@ -244,31 +244,54 @@ public class BoardTest {
 		//Lvl1 has 10 bombs, we should test if we have more or less than 10 and show an error if we have a case
 		int lvl1_invalid_lower = 9;
 		int lvl1_invalid_higher = 11;
-		assertTrue("Mines for lvl 1 should be 9 instead of " + mines1, (mines1 <= lvl1_invalid_lower) || (mines1 >= lvl1_invalid_higher));
+		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_lower) || (mines1 <= lvl1_invalid_higher));
 		//Lvl2 has 40 bombs, we should test if we have more or less than 40 and show an error if we have a case
 		int lvl2_invalid_lower = 39;
 		int lvl2_invalid_higher = 41;
-		assertTrue("Mines for lvl 2 should be 40 instead of " + mines2, (mines2 <= lvl2_invalid_lower) || (mines2 >= lvl2_invalid_higher));
+		assertTrue("Mines for lvl 2 should be 40 instead of " + mines2, (mines2 >= lvl2_invalid_lower) || (mines2 <= lvl2_invalid_higher));
 		//Lvl3 has 99 bombs, we should test if we have more or less than 99 and show an error if we have a case
 		int lvl3_invalid_lower = 98;
 		int lvl3_invalid_higher = 100;
-		assertTrue("Mines for lvl 3 should be 99 instead of " + mines3, (mines3 <= lvl3_invalid_lower) || (mines3 >= lvl3_invalid_higher));
+		assertTrue("Mines for lvl 3 should be 99 instead of " + mines3, (mines3 >= lvl3_invalid_lower) || (mines3 <= lvl3_invalid_higher));
 		//Equivalence partitioning----
 		
 		//----Limit values
 		//In this case we don't have a valid range, so we can only test individual numbers
 		//Min 0, 9(invalid), 10(valid)
 		
-		assertTrue("Test not passed due to the mine value beeing lower than the limit value", mines1 <= lvl1_invalid_lower);
+		assertTrue("Test not passed due to the mine value beeing lower than the limit value", mines1 >= lvl1_invalid_lower);
 		//intermidiate 20, 39(invalid), 40 valid
-		assertTrue("Test not passed due to the mine value beeing lower than the mid term value", mines2 <= lvl2_invalid_lower);
+		assertTrue("Test not passed due to the mine value beeing lower than the mid term value", mines2 >= lvl2_invalid_lower);
 		//Max 100, 200(invalid), 99(valid)
-		assertTrue("Test not passed due to the mine value beeing higher than the limit value", mines2 >= lvl3_invalid_higher);
+		assertTrue("Test not passed due to the mine value beeing higher than the limit value", mines2 <= lvl3_invalid_higher);
 		
 		
 		//Limit values----
 	}
 	
+	void testopenCell() {
+		Board testboard10 = new Board(1);
+		int [][] input = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
+									 {9, 9, 2, 0, 0, 2, 9, 9},
+									 {2, 2, 1, 0, 0, 1, 2, 2},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {2, 2, 1, 0, 0, 1, 2, 2},
+									 {9, 9, 2, 0, 0, 2, 9, 9},
+									 {3, 9, 2, 0, 0, 2, 9, 3}};
+			 
+		 testboard10.setBoard(input);
+		 //Selecting any midel cell with value 0 should output the following matrix
+		 int [][] expectedOu = new int[][] {{-1, -1, 2, 0, 0, 2, -1, -1},
+										   {-1, -1, 2, 0, 0, 2, -1, -1},
+										   {2, 2, 1, 0, 0, 1, 2, 2},
+										   {0, 0, 0, 0, 0, 0, 0, 0},
+										   {0, 0, 0, 0, 0, 0, 0, 0},
+										   {2, 2, 1, 0, 0, 1, 2, 2},
+										   {-1, -1, 2, 0, 0, 2, -1, -1},
+										   {-1, -1, 2, 0, 0, 2, -1, -1}};								 
+
+	}
 	
 
 }
