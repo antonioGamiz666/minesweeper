@@ -179,10 +179,29 @@ public class BoardTest {
 											 {3, 9, 8, 9, 3, 0, 0, 0},
 											 {2, 9, 9, 9, 4, 3, 2, 1},
 											 {1, 2, 3, 4, 9, 9, 9, 2},
-											 {0, 0, 0, 3, 9, 0, 9, 3},
+											 {0, 0, 0, 3, 9, 8, 9, 3},
 											 {0, 0, 0, 2, 9, 9, 9, 2},
 											 {0, 0, 0, 1, 2, 3, 2, 1}};
-			
+		//test
+		Board testboard1 = new Board(1);
+		testboard.setBoard(test1);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut1);
+		testboard.setBoard(test2);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut2);
+		testboard.setBoard(test3);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut3);
+		testboard.setBoard(test4);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut4);
+		testboard.setBoard(test5);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut5);
+		testboard.setBoard(test6);
+		testboard.initBoard();
+		assertEquals(testboard.getBoard(), expectedOut6);
 	}
 		 
 	
