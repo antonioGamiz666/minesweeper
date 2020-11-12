@@ -266,8 +266,14 @@ public class Board {
 
 		
 		this.board = new int[num_rows][num_columns];
+		this.boardUser = new int[this.num_rows][this.num_columns];
 		this.initMines();
 		this.initBoard();
+		for(int i=0; i< this.num_rows; i++) {
+			for(int j=0; j<this.num_columns; j++) {
+				this.boardUser[i][j]=-1;
+			}
+		}
 	}
 	
 	public int[][] getBoard(){
@@ -318,65 +324,65 @@ public class Board {
 					this.checkBottomRight(posX, posY);
 				} else if(posY == this.num_columns - 1) {
 					//top right corner
-					this.checkLeftMines(posX, posY);
-					this.checkBottomMines(posX, posY);
-					this.checkBottomLeftMines(posX, posY);
+					this.checkLeft(posX, posY);
+					this.checkBottom(posX, posY);
+					this.checkBottomLeft(posX, posY);
 					
 				} else { 
 					//top row
-					this.checkLeftMines(posX, posY);
-					this.checkRightMines(posX, posY);
-					this.checkBottomRightMines(posX, posY);
-					this.checkBottomLeftMines(posX, posY);
-					this.checkBottomMines(posX, posY);
+					this.checkLeft(posX, posY);
+					this.checkRight(posX, posY);
+					this.checkBottomRight(posX, posY);
+					this.checkBottomLeft(posX, posY);
+					this.checkBottom(posX, posY);
 				
 				}
 			} else if(posX == this.num_rows - 1) { //last row
 				if( posY == 0 ) {
 					//bottom left corner
-					this.checkRightMines(posX, posY);
-					this.checkTopMines(posX, posY);
-					this.checkTopRightMines(posX, posY);
+					this.checkRight(posX, posY);
+					this.checkTop(posX, posY);
+					this.checkTopRight(posX, posY);
 				} else if(posY == this.num_columns - 1) {
 					//bottom right corner
-					this.checkLeftMines(posX, posY);
-					this.checkTopMines(posX, posY);
-					this.checkTopLeftMines(posX, posY);
+					this.checkLeft(posX, posY);
+					this.checkTop(posX, posY);
+					this.checkTopLeft(posX, posY);
 				
 				} else { 
 					//last row
-					this.checkLeftMines(posX, posY);
-					this.checkRightMines(posX, posY);
-					this.checkTopRightMines(posX, posY);
-					this.checkTopLeftMines(posX, posY);
-					this.checkTopMines(posX, posY);
+					this.checkLeft(posX, posY);
+					this.checkRight(posX, posY);
+					this.checkTopRight(posX, posY);
+					this.checkTopLeft(posX, posY);
+					this.checkTop(posX, posY);
 				
 				}
 			} else if(posY == 0) {
 				// first column
-				this.checkTopMines(posX, posY);
-				this.checkBottomMines(posX, posY);
-				this.checkTopRightMines(posX, posY);
-				this.checkBottomRightMines(posX, posY);
-				this.checkRightMines(posX, posY);
+				this.checkTop(posX, posY);
+				this.checkBottom(posX, posY);
+				this.checkTopRight(posX, posY);
+				this.checkBottomRight(posX, posY);
+				this.checkRight(posX, posY);
 				
 			} else if(posY == this.num_columns - 1) {
 				//last column
-				this.checkTopMines(posX, posY);
-				this.checkBottomMines(posX, posY);
-				this.checkTopLeftMines(posX, posY);
-				this.checkBottomLeftMines(posX, posY);
-				this.checkLeftMines(posX, posY);
+				this.checkTop(posX, posY);
+				this.checkBottom(posX, posY);
+				this.checkTopLeft(posX, posY);
+				this.checkBottomLeft(posX, posY);
+				this.checkLeft(posX, posY);
 				
 			} else {
-				this.checkTopMines(posX, posY);
-				this.checkBottomMines(posX, posY);
-				this.checkLeftMines(posX, posY);
-				this.checkRightMines(posX, posY);
-				this.checkTopLeftMines(posX, posY);
-				this.checkBottomLeftMines(posX, posY);
-				this.checkTopRightMines(posX, posY);
-				this.checkBottomRightMines(posX, posY);
+				this.checkTop(posX, posY);
+				this.checkBottom(posX, posY);
+				this.checkLeft(posX, posY);
+				this.checkRight(posX, posY);
+				this.checkTopLeft(posX, posY);
+				this.checkBottomLeft(posX, posY);
+				this.checkTopRight(posX, posY);
+				this.checkBottomRight(posX, posY);
 			}
 		}else {
 			if(boardUser[posX][posY] == -1)
