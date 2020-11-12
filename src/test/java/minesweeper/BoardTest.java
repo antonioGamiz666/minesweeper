@@ -73,6 +73,34 @@ public class BoardTest {
 	}
 	
 	@Test
+	public void testAdjacentMineChecks() {
+		//testing checkRightMines, checkLeftMines, checkTopMines, checkBottomMines, checkTopRightMines, checkTopLeftMines, checkBottomRightMines, checkBottomLeftMines
+		//this functions only will return a 1 if there is a mine on the position it's checking. for example, checkRight will return a 1 if there is a mine right to the cell or a 0 if not
+				
+		int [][] inputTest = new int[][] {{9, 9, 9, 0, 0, 0, 0, 0}, // we will use the position 1,1 to check when THERE IS a mine
+										  {9, 0, 9, 0, 0, 0, 0, 0},
+										  {9, 9, 9, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0}, // we will use the position 6,6 to check when THERE ISN'T a mine
+										  {0, 0, 0, 0, 0, 0, 0, 0}};
+										  
+		Board testBoard = new Board(1);
+		testBoard.setBoard(inputTest);
+										  			
+		//test if there is a bomb
+		assertTrue("EP", testBoard.checkTopMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkTopRightMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkRightMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkBottomRightMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkBottomMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkBottomLeftMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkLeftMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkTopLeftMines(1, 1) != 1);
+	}
+	
+	@Test
 	public void testInitBoard2() {
 		Board testboard = new Board(1);
 		int [][] test1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},

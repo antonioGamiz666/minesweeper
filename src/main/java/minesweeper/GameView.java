@@ -43,68 +43,65 @@ private static String flag = "[!]";
 		}
 		
 		public void printMatrix(int [][]userBoard) {
-		
-		
-		for ( int i = 0; i <= 8; i++) {
-			for ( int j = 0; j <= 8; j++) {
-				if(i == 0) {
-					if(j==0) {
-						System.out.print(" ");
-					}
-					else {
-						System.out.print("\t"+ j);
-					}
-					
-				}
-				else {
-					if (j == 0) System.out.print(+i);
-					else {
-						switch(userBoard[i][j]) {
-							case -1:
-								this.field[i][j]=this.closedcell;
-								break;
-							case 0:
-								this.field[i][j]=this.openedcell_empty;
-								break;
-							case 1:
-								this.field[i][j]=this.number1;
-								break;
-							case 2:
-								this.field[i][j]=this.number2;
-								break;
-							case 3:
-								this.field[i][j]=this.number3;
-								break;
-							case 4:
-								this.field[i][j]=this.number4;
-								break;
-							case 5:
-								this.field[i][j]=this.number5;
-								break;
-							case 6:
-								this.field[i][j]=this.number6;
-								break;
-							case 7:
-								this.field[i][j]=this.number7;
-								break;
-							case 8:
-								this.field[i][j]=this.number8;
-								break;
-							case 9:
-								this.field[i][j]=this.openedcell_mine;
-								break;
-								
+				
+			for (int i = 0; i <= 8; i++) {
+				for ( int j = 0; j <= 8; j++) {
+					if(i == 0) {
+						if(j==0) {
+							System.out.print(" ");
 						}
-						System.out.print("\t"+field[i][j]);
+						else {
+							System.out.print("\t"+ j);
+						}
+						
+					}
+					else {
+						if (j == 0) System.out.print(+i);
+						else {
+							switch(userBoard[i][j]) {
+								case -1:
+									this.field[i][j]=this.closedcell;
+									break;
+								case 0:
+									this.field[i][j]=this.openedcell_empty;
+									break;
+								case 1:
+									this.field[i][j]=this.number1;
+									break;
+								case 2:
+									this.field[i][j]=this.number2;
+									break;
+								case 3:
+									this.field[i][j]=this.number3;
+									break;
+								case 4:
+									this.field[i][j]=this.number4;
+									break;
+								case 5:
+									this.field[i][j]=this.number5;
+									break;
+								case 6:
+									this.field[i][j]=this.number6;
+									break;
+								case 7:
+									this.field[i][j]=this.number7;
+									break;
+								case 8:
+									this.field[i][j]=this.number8;
+									break;
+								case 9:
+									this.field[i][j]=this.openedcell_mine;
+									break;
+									
+							}
+							System.out.print("\t"+field[i][j]);
+						}
+						
 					}
 					
 				}
+				System.out.println();
 				
 			}
-			System.out.println();
-			
 		}
-
-	
-	}
 }

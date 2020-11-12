@@ -41,21 +41,18 @@ public class Board {
 	private final int Flag_value = 4;
 	
 	public void initMines() {
+		
 		//We have a matrix columns x row, generate 2 random
 		//1 random for X and one for Y and generate until we place all the mines
 		
+		//This variable is to be able to control how many bombs left to allocate
 		int number_Mines_left = this.num_mines;		
 		
-		//Sacar valor 0-3 para poner X minas en esa fila y ir restando al maximo de minas
-		//Podriamos por ejemplo saltarnos la 3 fila y la 6 o asi
-		while(number_Mines_left > 0 ) {//Crear funcion aparte
-
-			//int y=0;
-			int rand_mines = 0;
+		while(number_Mines_left > 0 ) {
 				
-			int posX = getRandomInteger(0, this.num_rows - 1);
-			int posY = getRandomInteger(0, this.num_columns - 1);
-			if(board[posX][posY] != Mine_value) {
+			int posX = getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
+			int posY = getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
+			if(board[posX][posY] != Mine_value) { // If there isn't a mine yet on this random position, we place it
 				board[posX][posY] = Mine_value;
 				number_Mines_left--;
 			}
@@ -64,56 +61,56 @@ public class Board {
 		}
 	}
 	
-	private int checkRightMines(int posX, int posY) {
+	public int checkRightMines(int posX, int posY) {
 		if(this.board[posX][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkLeftMines(int posX, int posY) {
+	public int checkLeftMines(int posX, int posY) {
 		if(this.board[posX][posY-1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTopMines(int posX, int posY) {
+	public int checkTopMines(int posX, int posY) {
 		if(this.board[posX-1][posY] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottomMines(int posX, int posY) {
+	public int checkBottomMines(int posX, int posY) {
 		if(this.board[posX+1][posY] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTopRightMines(int posX, int posY) {
+	public int checkTopRightMines(int posX, int posY) {
 		if(this.board[posX-1][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTopLeftMines(int posX, int posY) {
+	public int checkTopLeftMines(int posX, int posY) {
 		if(this.board[posX-1][posY-1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottomRightMines(int posX, int posY) {
+	public int checkBottomRightMines(int posX, int posY) {
 		if(this.board[posX+1][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottomLeftMines(int posX, int posY) {
+	public int checkBottomLeftMines(int posX, int posY) {
 		if(this.board[posX+1][posY-1] == this.Mine_value)
 			return 1;
 		else
