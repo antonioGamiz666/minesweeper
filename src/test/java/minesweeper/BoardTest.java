@@ -288,6 +288,7 @@ public class BoardTest {
 		//Limit values----
 	}
 	
+
 	void testopenCell() {
 		Board testboard10 = new Board(1);
 		int [][] input = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
@@ -300,7 +301,7 @@ public class BoardTest {
 									 {3, 9, 2, 0, 0, 2, 9, 3}};
 			 
 		 testboard10.setBoard(input);
-		 //Selecting any midel cell with value 0 should output the following matrix
+		 //Selecting any middle cell with value 0 should output the following matrix
 		 int [][] expectedOu = new int[][] {{-1, -1, 2, 0, 0, 2, -1, -1},
 										   {-1, -1, 2, 0, 0, 2, -1, -1},
 										   {2, 2, 1, 0, 0, 1, 2, 2},
@@ -308,9 +309,13 @@ public class BoardTest {
 										   {0, 0, 0, 0, 0, 0, 0, 0},
 										   {2, 2, 1, 0, 0, 1, 2, 2},
 										   {-1, -1, 2, 0, 0, 2, -1, -1},
-										   {-1, -1, 2, 0, 0, 2, -1, -1}};								 
-
-	}
+										   {-1, -1, 2, 0, 0, 2, -1, -1}};
+	testboard10.openCell(0, 3);									   
+	int [][]p = new int[8][8];
+	p = testboard10.getBoardUser();
+	assertArrayEquals(expectedOu, p);
 	
+	}
+
 
 }
