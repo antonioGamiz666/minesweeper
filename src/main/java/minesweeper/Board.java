@@ -6,7 +6,7 @@ public class Board {
 	
 
 	private int[][] board;
-	
+	private int[][] boardUser;
 	
 	
 	private int num_rows;
@@ -64,168 +64,180 @@ public class Board {
 		}
 	}
 	
-	private int checkRight(int posX, int posY) {
+	private int checkRightMines(int posX, int posY) {
 		if(this.board[posX][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkLeft(int posX, int posY) {
+	private int checkLeftMines(int posX, int posY) {
 		if(this.board[posX][posY-1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTop(int posX, int posY) {
+	private int checkTopMines(int posX, int posY) {
 		if(this.board[posX-1][posY] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottom(int posX, int posY) {
+	private int checkBottomMines(int posX, int posY) {
 		if(this.board[posX+1][posY] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTopRight(int posX, int posY) {
+	private int checkTopRightMines(int posX, int posY) {
 		if(this.board[posX-1][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkTopLeft(int posX, int posY) {
+	private int checkTopLeftMines(int posX, int posY) {
 		if(this.board[posX-1][posY-1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottomRight(int posX, int posY) {
+	private int checkBottomRightMines(int posX, int posY) {
 		if(this.board[posX+1][posY+1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int checkBottomLeft(int posX, int posY) {
+	private int checkBottomLeftMines(int posX, int posY) {
 		if(this.board[posX+1][posY-1] == this.Mine_value)
 			return 1;
 		else
 			return 0;
 	}
 	
-	private int getMinesAdjacent(int sample, int posX, int posY) {
-		int value = 0;
-		switch(sample) {
-			case 0: // top left corner
-				value += this.checkRight(posX, posY);
-				value += this.checkBottom(posX, posY);
-				value += this.checkBottomRight(posX, posY);
-				break;
-			case 1: // top right corner
-				value += this.checkLeft(posX, posY);
-				value += this.checkBottom(posX, posY);
-				value += this.checkBottomLeft(posX, posY);
-				break;
-			case 2: // bottom left corner
-				value += this.checkRight(posX, posY);
-				value += this.checkTop(posX, posY);
-				value += this.checkTopRight(posX, posY);
-				break;
-			case 3: // bottom right corner
-				value += this.checkLeft(posX, posY);
-				value += this.checkTop(posX, posY);
-				value += this.checkTopLeft(posX, posY);
-				break;
-			case 4: // first row (without corners)
-				value += this.checkLeft(posX, posY);
-				value += this.checkRight(posX, posY);
-				value += this.checkBottomRight(posX, posY);
-				value += this.checkBottomLeft(posX, posY);
-				value += this.checkBottom(posX, posY);
-				break;
-			case 5: // last row (without corners)
-				value += this.checkLeft(posX, posY);
-				value += this.checkRight(posX, posY);
-				value += this.checkTopRight(posX, posY);
-				value += this.checkTopLeft(posX, posY);
-				value += this.checkTop(posX, posY);
-				break;
-			case 6: // first column (without corners)
-				value += this.checkTop(posX, posY);
-				value += this.checkBottom(posX, posY);
-				value += this.checkTopRight(posX, posY);
-				value += this.checkBottomRight(posX, posY);
-				value += this.checkRight(posX, posY);
-				break;
-			case 7: // last column (without corners)
-				value += this.checkTop(posX, posY);
-				value += this.checkBottom(posX, posY);
-				value += this.checkTopLeft(posX, posY);
-				value += this.checkBottomLeft(posX, posY);
-				value += this.checkLeft(posX, posY);
-				break;
-			case 8: // mid board (check all positions)
-				value += this.checkTop(posX, posY);
-				value += this.checkBottom(posX, posY);
-				value += this.checkLeft(posX, posY);
-				value += this.checkRight(posX, posY);
-				value += this.checkTopLeft(posX, posY);
-				value += this.checkBottomLeft(posX, posY);
-				value += this.checkTopRight(posX, posY);
-				value += this.checkBottomRight(posX, posY);
-				break;
-		}
-		return value;
+	////////////////////////////////////////////////////////////
+	
+	private void checkRight(int posX, int posY) {
+		this.openCell(posX,posY+1);		
 	}
+	
+	private void checkLeft(int posX, int posY) {
+		this.openCell(posX,posY-1);
+	}
+	
+	private void checkTop(int posX, int posY) {
+		this.openCell(posX-1,posY); 
+	}
+	
+	private void checkBottom(int posX, int posY) {
+		this.openCell(posX+1,posY);
+	}
+	
+	private void checkTopRight(int posX, int posY) {
+		this.openCell(posX-1,posY+1);
+	}
+	
+	private void checkTopLeft(int posX, int posY) {
+		this.openCell(posX-1,posY-1);
+	}
+	
+	private void checkBottomRight(int posX, int posY) {
+		this.openCell(posX+1,posY+1); 
+	}
+	
+	private void checkBottomLeft(int posX, int posY) {
+		this.openCell(posX+1,posY-1); 
+	}
+
+	
 	
 	public void initBoard() {
 		
 		for(int i = 0; i < (this.num_rows); i++) {
 			for(int j = 0; j < (this.num_columns); j++) {
 				if( this.board[i][j] != this.Mine_value ) {
-					if( i == 0 ) { //primera fila
-						if( j == 0 ) {
-							//esquina superior izquierda
-							this.board[i][j] = this.getMinesAdjacent(0, i , j);
-						} else if(j == this.num_columns - 1) {
-							//esquina superior derecha
-							this.board[i][j] = this.getMinesAdjacent(1, i , j);
-						} else { 
-							//fila de arriba
-							this.board[i][j] = this.getMinesAdjacent(4, i , j);
-						}
-					} else if(i == this.num_rows - 1) { //ultima fila
-						if( j == 0 ) {
-							//esquina inferior izquierda
-							this.board[i][j] = this.getMinesAdjacent(2, i , j);
-						} else if(j == this.num_columns - 1) {
-							//esquina inferior derecha
-							this.board[i][j] = this.getMinesAdjacent(3, i , j);
-						} else { 
-							//fila de abajo
-							this.board[i][j] = this.getMinesAdjacent(5, i , j);
-						}
-					} else if(j == 0) {
-						// primera columna
-						this.board[i][j] = this.getMinesAdjacent(6, i , j);
-					} else if(j == this.num_columns - 1) {
-						//ultima columna
-						this.board[i][j] = this.getMinesAdjacent(7, i , j);
-					} else {
-						//en medio del tablero, comprobar todas las posiciones
-						this.board[i][j] = this.getMinesAdjacent(8, i , j);
-					}
+					this.board[i][j] = getAdjacent(i,j);
 				}
 			}
 		}
 	}
+	
+	private int getAdjacent(int posX, int posY) {
+		int value = 0;		
+		if( posX == 0 ) { //first row
+			if( posY == 0 ) {
+				//top left corner
+				value += this.checkRightMines(posX, posY);
+				value += this.checkBottomMines(posX, posY);
+				value += this.checkBottomRightMines(posX, posY);
+			} else if(posY == this.num_columns - 1) {
+				//top right corner
+				value += this.checkLeftMines(posX, posY);
+				value += this.checkBottomMines(posX, posY);
+				value += this.checkBottomLeftMines(posX, posY);
+			} else { 
+				//top row
+				value += this.checkLeftMines(posX, posY);
+				value += this.checkRightMines(posX, posY);
+				value += this.checkBottomRightMines(posX, posY);
+				value += this.checkBottomLeftMines(posX, posY);
+				value += this.checkBottomMines(posX, posY);
+			}
+		} else if(posX == this.num_rows - 1) { //last row
+			if( posY == 0 ) {
+				//bottom left corner
+				value += this.checkRightMines(posX, posY);
+				value += this.checkTopMines(posX, posY);
+				value += this.checkTopRightMines(posX, posY);
+			} else if(posY == this.num_columns - 1) {
+				//bottom right corner
+				value += this.checkLeftMines(posX, posY);
+				value += this.checkTopMines(posX, posY);
+				value += this.checkTopLeftMines(posX, posY);
+			} else { 
+				//last row
+				value += this.checkLeftMines(posX, posY);
+				value += this.checkRightMines(posX, posY);
+				value += this.checkTopRightMines(posX, posY);
+				value += this.checkTopLeftMines(posX, posY);
+				value += this.checkTopMines(posX, posY);
+			}
+		} else if(posY == 0) {
+			// first column
+			value += this.checkTopMines(posX, posY);
+			value += this.checkBottomMines(posX, posY);
+			value += this.checkTopRightMines(posX, posY);
+			value += this.checkBottomRightMines(posX, posY);
+			value += this.checkRightMines(posX, posY);
+		} else if(posY == this.num_columns - 1) {
+			//last column
+			value += this.checkTopMines(posX, posY);
+			value += this.checkBottomMines(posX, posY);
+			value += this.checkTopLeftMines(posX, posY);
+			value += this.checkBottomLeftMines(posX, posY);
+			value += this.checkLeftMines(posX, posY);
+		} else {
+			//mid field (check all the surrounding positions)
+			value += this.checkTopMines(posX, posY);
+			value += this.checkBottomMines(posX, posY);
+			value += this.checkLeftMines(posX, posY);
+			value += this.checkRightMines(posX, posY);
+			value += this.checkTopLeftMines(posX, posY);
+			value += this.checkBottomLeftMines(posX, posY);
+			value += this.checkTopRightMines(posX, posY);
+			value += this.checkBottomRightMines(posX, posY);
+		}
+		
+		
+		return value;
+	}
+	
+	
 	
 	
 	Board(int level){
@@ -262,6 +274,11 @@ public class Board {
 		return this.board;
 	}
 	
+	public int[][] getBoardUser(){
+		return this.boardUser;
+	}
+	
+	
 	public int setBoard(int[][] b) {
 		this.board  = b;
 		return 0;
@@ -275,6 +292,7 @@ public class Board {
 		
 	}
 	
+
 	public int[][] initBoard(int row, int col) {
 		int Matrix_board[][] = new int[row][col];
 		
@@ -283,6 +301,92 @@ public class Board {
 		return Matrix_board;
 	}
 	
+
+	public void openCell(int posX, int posY) {
+		//Create a new board in the class, and with
+		//the recurse function we can fill it every time
+		//we expose a cell, then send it to the view to print it
+		
+		//if it's 0 and the cell its not opened yet
+		if(board[posX][posY] == 0 && boardUser[posX][posY] == -1) {
+			this.boardUser[posX][posY] = 0;
+			if( posX == 0 ) { //first row
+				if( posY == 0 ) {
+					//top left corner
+					this.checkRight(posX, posY);
+					this.checkBottom(posX, posY);
+					this.checkBottomRight(posX, posY);
+				} else if(posY == this.num_columns - 1) {
+					//top right corner
+					this.checkLeftMines(posX, posY);
+					this.checkBottomMines(posX, posY);
+					this.checkBottomLeftMines(posX, posY);
+					
+				} else { 
+					//top row
+					this.checkLeftMines(posX, posY);
+					this.checkRightMines(posX, posY);
+					this.checkBottomRightMines(posX, posY);
+					this.checkBottomLeftMines(posX, posY);
+					this.checkBottomMines(posX, posY);
+				
+				}
+			} else if(posX == this.num_rows - 1) { //last row
+				if( posY == 0 ) {
+					//bottom left corner
+					this.checkRightMines(posX, posY);
+					this.checkTopMines(posX, posY);
+					this.checkTopRightMines(posX, posY);
+				} else if(posY == this.num_columns - 1) {
+					//bottom right corner
+					this.checkLeftMines(posX, posY);
+					this.checkTopMines(posX, posY);
+					this.checkTopLeftMines(posX, posY);
+				
+				} else { 
+					//last row
+					this.checkLeftMines(posX, posY);
+					this.checkRightMines(posX, posY);
+					this.checkTopRightMines(posX, posY);
+					this.checkTopLeftMines(posX, posY);
+					this.checkTopMines(posX, posY);
+				
+				}
+			} else if(posY == 0) {
+				// first column
+				this.checkTopMines(posX, posY);
+				this.checkBottomMines(posX, posY);
+				this.checkTopRightMines(posX, posY);
+				this.checkBottomRightMines(posX, posY);
+				this.checkRightMines(posX, posY);
+				
+			} else if(posY == this.num_columns - 1) {
+				//last column
+				this.checkTopMines(posX, posY);
+				this.checkBottomMines(posX, posY);
+				this.checkTopLeftMines(posX, posY);
+				this.checkBottomLeftMines(posX, posY);
+				this.checkLeftMines(posX, posY);
+				
+			} else {
+				this.checkTopMines(posX, posY);
+				this.checkBottomMines(posX, posY);
+				this.checkLeftMines(posX, posY);
+				this.checkRightMines(posX, posY);
+				this.checkTopLeftMines(posX, posY);
+				this.checkBottomLeftMines(posX, posY);
+				this.checkTopRightMines(posX, posY);
+				this.checkBottomRightMines(posX, posY);
+			}
+		}else {
+			if(boardUser[posX][posY] == -1)
+			this.boardUser[posX][posY] = this.board[posX][posY];
+		}
+	}
+	
+	
+	
+	/*
 	public int[][] initScores(int numScores_1, int numScores_2, int numScores_3) {
 		//int Matrix_scores[][] = new int[NUM_ROWS][NUM_COLUMNS];
 		
@@ -290,7 +394,7 @@ public class Board {
 		return null;
 		
 	}
-	
+	*/
 	
 	/*
 	
@@ -355,4 +459,5 @@ public class Board {
 	}
 
 */
+
 }
