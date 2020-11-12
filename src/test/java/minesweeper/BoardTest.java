@@ -288,8 +288,8 @@ public class BoardTest {
 		//Limit values----
 	}
 	
-
-	void testopenCell() {
+	@Test
+	public void testopenCell() {
 		Board testboard10 = new Board(1);
 		int [][] input = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
 									 {9, 9, 2, 0, 0, 2, 9, 9},
