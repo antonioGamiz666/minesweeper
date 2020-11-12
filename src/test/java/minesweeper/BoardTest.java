@@ -214,22 +214,22 @@ public class BoardTest {
 		Board testboard1 = new Board(1);
 		testboard.setBoard(test1);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut1);
+		assertArrayEquals(testboard.getBoard(), expectedOut1);
 		testboard.setBoard(test2);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut2);
+		assertArrayEquals(testboard.getBoard(), expectedOut2);
 		testboard.setBoard(test3);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut3);
+		assertArrayEquals(testboard.getBoard(), expectedOut3);
 		testboard.setBoard(test4);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut4);
+		assertArrayEquals(testboard.getBoard(), expectedOut4);
 		testboard.setBoard(test5);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut5);
+		assertArrayEquals(testboard.getBoard(), expectedOut5);
 		testboard.setBoard(test6);
 		testboard.initBoard();
-		assertEquals(testboard.getBoard(), expectedOut6);
+		assertArrayEquals(testboard.getBoard(), expectedOut6);
 	}
 		 
 	
@@ -348,6 +348,15 @@ public class BoardTest {
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1}};
 										   
+	   int [][] expectedOu2  = new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
+										   {9, 9, -1, -1, -1, -1, 9, 9},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {9, 9, -1, -1, -1, -1, 9, 9},
+										   {-1, 9, -1, -1, -1, -1, 9, -1}};
+										   
 		   								   
 		testboard10.openCell(0, 3);									   
 		int [][]p = new int[8][8];
@@ -361,6 +370,11 @@ public class BoardTest {
 		
 		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu1, v);
+		
+		//TDD for opening a mine and losing
+		testboard11.openCell(0, 1);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
 		
 		
 	
