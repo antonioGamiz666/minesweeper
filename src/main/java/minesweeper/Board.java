@@ -311,7 +311,17 @@ public class Board {
 		//we expose a cell, then send it to the view to print it
 		
 		//if it's 0 and the cell its not opened yet
-		if(board[posX][posY] == 0 && boardUser[posX][posY] == -1) {
+		if( this.board[posX][posY] == this.Mine_value) {
+			for(int i=0; i< this.num_rows;i++) {
+				for(int j=0; j<this.num_columns;j++) {
+					if(this.board[i][j]==this.Mine_value) {
+						this.boardUser[i][j]=this.board[i][j];
+					}
+				}
+			}
+		}
+		
+		if(board[posX][posY] == this.Empty_cell_value && boardUser[posX][posY] == -1) {
 			this.boardUser[posX][posY] = 0;
 			if( posX == 0 ) { //first row
 				if( posY == 0 ) {
@@ -388,79 +398,5 @@ public class Board {
 	}
 	
 	
-	
-	/*
-	public int[][] initScores(int numScores_1, int numScores_2, int numScores_3) {
-		//int Matrix_scores[][] = new int[NUM_ROWS][NUM_COLUMNS];
-		
-		
-		return null;
-		
-	}
-	*/
-	
-	/*
-	
-	public int[][] initMines(int numMines, int m[][]) {
-		
-		int Matrix_mines[][] = new int[NUM_ROWS][NUM_COLUMNS];
-		Boolean doneMines = false;
-		Matrix_mines= m;
-		int number_Mines_left = numMines;
-		int min_mine = 0;
-		int max_mine = 3;
-		
-		int min_pos = 0;
-		int max_pos = 7;
-		int x=0;
-		
-		//Sacar valor 0-3 para poner X minas en esa fila y ir restando al maximo de minas
-		//Podriamos por ejemplo saltarnos la 3 fila y la 6 o asi
-		while(number_Mines_left > 0 || !doneMines) {//Crear funcion aparte
-
-			//int y=0;
-			int rand_mines = 0;
-			
-			
-			rand_mines = getRandomInteger(min_mine, max_mine);
-			if(rand_mines <= number_Mines_left) {
-				for(int i=0; i < rand_mines; i++) {
-					int rand_pos = 0;
-					rand_pos = getRandomInteger(min_pos, max_pos);
-					if(Matrix_mines[x][rand_pos] == 0) {
-						Matrix_mines[x][rand_pos] = Mine_value;
-					}else { i--; }
-				}
-				
-				number_Mines_left = number_Mines_left - rand_mines;
-				x++;
-			}
-			else {
-				
-					while(number_Mines_left > 0){
-						int z=0;
-						if(Matrix_mines[x][z]!=5) {
-							Matrix_mines[x][z] = Mine_value;
-							number_Mines_left = number_Mines_left - 1;
-						}
-					}
-					
-			}
-			
-			
-			
-			
-
-		}
-		
-		//Posicion random 0-8 para colocar las minas en la fila X veces por el numero
-		//de minas que vaya a a tener la fila
-		
-		
-		return Matrix_mines;
-		
-	}
-
-*/
 
 }
