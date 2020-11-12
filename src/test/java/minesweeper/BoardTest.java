@@ -310,10 +310,31 @@ public class BoardTest {
 										   {2, 2, 1, 0, 0, 1, 2, 2},
 										   {-1, -1, 2, 0, 0, 2, -1, -1},
 										   {-1, -1, 2, 0, 0, 2, -1, -1}};
-	testboard10.openCell(0, 3);									   
-	int [][]p = new int[8][8];
-	p = testboard10.getBoardUser();
-	assertArrayEquals(expectedOu, p);
+										   
+		int [][] expectedOu1 = new int[][] {{3, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1}};
+										   
+		   								   
+		testboard10.openCell(0, 3);									   
+		int [][]p = new int[8][8];
+		p = testboard10.getBoardUser();
+		assertArrayEquals(expectedOu, p);
+		
+		Board testboard11 = new Board(1);
+		testboard11.setBoard(input);
+		int [][]v = new int[8][8];
+		testboard11.openCell(0, 0);	
+		
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu1, v);
+		
+		
 	
 	}
 
