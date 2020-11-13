@@ -358,7 +358,15 @@ public class BoardTest {
 										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, 9, -1, -1, -1, -1, 9, -1}};
 										   
-		   								   
+		int [][] expectedOu3= new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
+										   {9, 9, -1, -1, -1, -1, 9, 9},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {9, 9, -1, -1, -1, -1, 9, 9},
+										   {-1, 9, -1, -1, -1, -1, 9, 3}};
+	   								   
 		testboard10.openCell(0, 3);									   
 		int [][]p = new int[8][8];
 		p = testboard10.getBoardUser();
@@ -377,14 +385,19 @@ public class BoardTest {
 		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
 		
-		//----Equivalence partitioning
+		//----Equivalence partitioning and Limit values
 		//We already tested for a valid inputs
 		//Now we are going to test invalid inputs
+		//we should get the same out as the last one due to not opnening invalid values
 		testboard11.openCell(-1, -1);
+		assertArrayEquals(expectedOu2,v);
 		testboard11.openCell(-1, 3);
+		assertArrayEquals(expectedOu2,v);
 		testboard11.openCell(8, 8);
+		assertArrayEquals(expectedOu2,v);
 		
-		
+		testboard11.openCell(7,7);
+		assertArrayEquals(expectedOu3,v);
 	
 	}
 
