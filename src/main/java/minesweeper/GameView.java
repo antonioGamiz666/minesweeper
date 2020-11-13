@@ -10,7 +10,7 @@ public class GameView {
 	
 public static String[][] field = new String[9][9];
 
-private static String closedcell = "[]";
+private static String closedcell = "[ ]";
 private static String openedcell_empty = "[_]";
 private static String openedcell_mine = "[X]";
 private static String number1 = "[1]";
@@ -32,7 +32,9 @@ private static String flag = "[!]";
 		//preguntar posicion -> meter posicion por teclado 
 
 		
-		
+		public void gameOver() {
+			System.out.println("Game Over");
+		}
 		 
 		public void askPosX() {			
 			System.out.println("Introduce posX: ");			
@@ -51,14 +53,15 @@ private static String flag = "[!]";
 							System.out.print(" ");
 						}
 						else {
-							System.out.print("\t"+ j);
+							System.out.print("\t");
+							System.out.print(j-1);
 						}
 						
 					}
 					else {
-						if (j == 0) System.out.print(+i);
+						if (j == 0) System.out.print(i-1);
 						else {
-							switch(userBoard[i][j]) {
+							switch(userBoard[i-1][j-1]) {
 								case -1:
 									this.field[i][j]=this.closedcell;
 									break;
