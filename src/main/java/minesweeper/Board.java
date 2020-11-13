@@ -7,7 +7,7 @@ public class Board {
 
 	private int[][] board;
 	private int[][] boardUser;
-	
+	public boolean lose;
 	
 	private int num_rows;
 	private int num_columns;
@@ -264,6 +264,7 @@ public class Board {
 		
 		this.board = new int[num_rows][num_columns];
 		this.boardUser = new int[this.num_rows][this.num_columns];
+		this.lose=false;
 		this.initMines();
 		this.initBoard();
 		for(int i=0; i< this.num_rows; i++) {
@@ -296,107 +297,100 @@ public class Board {
 	}
 	
 
-	public int[][] initBoard(int row, int col) {
-		int Matrix_board[][] = new int[row][col];
-		
-		
-	
-		return Matrix_board;
-	}
-	
 
 	public void openCell(int posX, int posY) {
 		//Create a new board in the class, and with
 		//the recurse function we can fill it every time
 		//we expose a cell, then send it to the view to print it
-		
+		if((posX >=0 && posX < this.num_columns) && (posY >= 0 && posY < this.num_columns)) {
 		//if it's 0 and the cell its not opened yet
-		if( this.board[posX][posY] == this.Mine_value) {
-			for(int i=0; i< this.num_rows;i++) {
-				for(int j=0; j<this.num_columns;j++) {
-					if(this.board[i][j]==this.Mine_value) {
-						this.boardUser[i][j]=this.board[i][j];
+			if( this.board[posX][posY] == this.Mine_value) {
+				this.lose=true;
+				for(int i=0; i< this.num_rows;i++) {
+					for(int j=0; j<this.num_columns;j++) {
+						if(this.board[i][j]==this.Mine_value) {
+							this.boardUser[i][j]=this.board[i][j];
+						}
 					}
 				}
-			}
-		}
-		
-		if(board[posX][posY] == this.Empty_cell_value && boardUser[posX][posY] == -1) {
-			this.boardUser[posX][posY] = 0;
-			if( posX == 0 ) { //first row
-				if( posY == 0 ) {
-					//top left corner
-					this.checkRight(posX, posY);
-					this.checkBottom(posX, posY);
-					this.checkBottomRight(posX, posY);
-				} else if(posY == this.num_columns - 1) {
-					//top right corner
-					this.checkLeft(posX, posY);
-					this.checkBottom(posX, posY);
-					this.checkBottomLeft(posX, posY);
-					
-				} else { 
-					//top row
-					this.checkLeft(posX, posY);
-					this.checkRight(posX, posY);
-					this.checkBottomRight(posX, posY);
-					this.checkBottomLeft(posX, posY);
-					this.checkBottom(posX, posY);
-				
+			}else {
+			
+				if(board[posX][posY] == this.Empty_cell_value && boardUser[posX][posY] == -1) {
+					this.boardUser[posX][posY] = 0;
+					if( posX == 0 ) { //first row
+						if( posY == 0 ) {
+							//top left corner
+							this.checkRight(posX, posY);
+							this.checkBottom(posX, posY);
+							this.checkBottomRight(posX, posY);
+						} else if(posY == this.num_columns - 1) {
+							//top right corner
+							this.checkLeft(posX, posY);
+							this.checkBottom(posX, posY);
+							this.checkBottomLeft(posX, posY);
+							
+						} else { 
+							//top row
+							this.checkLeft(posX, posY);
+							this.checkRight(posX, posY);
+							this.checkBottomRight(posX, posY);
+							this.checkBottomLeft(posX, posY);
+							this.checkBottom(posX, posY);
+						
+						}
+					} else if(posX == this.num_rows - 1) { //last row
+						if( posY == 0 ) {
+							//bottom left corner
+							this.checkRight(posX, posY);
+							this.checkTop(posX, posY);
+							this.checkTopRight(posX, posY);
+						} else if(posY == this.num_columns - 1) {
+							//bottom right corner
+							this.checkLeft(posX, posY);
+							this.checkTop(posX, posY);
+							this.checkTopLeft(posX, posY);
+						
+						} else { 
+							//last row
+							this.checkLeft(posX, posY);
+							this.checkRight(posX, posY);
+							this.checkTopRight(posX, posY);
+							this.checkTopLeft(posX, posY);
+							this.checkTop(posX, posY);
+						
+						}
+					} else if(posY == 0) {
+						// first column
+						this.checkTop(posX, posY);
+						this.checkBottom(posX, posY);
+						this.checkTopRight(posX, posY);
+						this.checkBottomRight(posX, posY);
+						this.checkRight(posX, posY);
+						
+					} else if(posY == this.num_columns - 1) {
+						//last column
+						this.checkTop(posX, posY);
+						this.checkBottom(posX, posY);
+						this.checkTopLeft(posX, posY);
+						this.checkBottomLeft(posX, posY);
+						this.checkLeft(posX, posY);
+						
+					} else {
+						this.checkTop(posX, posY);
+						this.checkBottom(posX, posY);
+						this.checkLeft(posX, posY);
+						this.checkRight(posX, posY);
+						this.checkTopLeft(posX, posY);
+						this.checkBottomLeft(posX, posY);
+						this.checkTopRight(posX, posY);
+						this.checkBottomRight(posX, posY);
+					}
+				}else {
+					if(boardUser[posX][posY] == -1)
+					this.boardUser[posX][posY] = this.board[posX][posY];
 				}
-			} else if(posX == this.num_rows - 1) { //last row
-				if( posY == 0 ) {
-					//bottom left corner
-					this.checkRight(posX, posY);
-					this.checkTop(posX, posY);
-					this.checkTopRight(posX, posY);
-				} else if(posY == this.num_columns - 1) {
-					//bottom right corner
-					this.checkLeft(posX, posY);
-					this.checkTop(posX, posY);
-					this.checkTopLeft(posX, posY);
-				
-				} else { 
-					//last row
-					this.checkLeft(posX, posY);
-					this.checkRight(posX, posY);
-					this.checkTopRight(posX, posY);
-					this.checkTopLeft(posX, posY);
-					this.checkTop(posX, posY);
-				
-				}
-			} else if(posY == 0) {
-				// first column
-				this.checkTop(posX, posY);
-				this.checkBottom(posX, posY);
-				this.checkTopRight(posX, posY);
-				this.checkBottomRight(posX, posY);
-				this.checkRight(posX, posY);
-				
-			} else if(posY == this.num_columns - 1) {
-				//last column
-				this.checkTop(posX, posY);
-				this.checkBottom(posX, posY);
-				this.checkTopLeft(posX, posY);
-				this.checkBottomLeft(posX, posY);
-				this.checkLeft(posX, posY);
-				
-			} else {
-				this.checkTop(posX, posY);
-				this.checkBottom(posX, posY);
-				this.checkLeft(posX, posY);
-				this.checkRight(posX, posY);
-				this.checkTopLeft(posX, posY);
-				this.checkBottomLeft(posX, posY);
-				this.checkTopRight(posX, posY);
-				this.checkBottomRight(posX, posY);
 			}
-		}else {
-			if(boardUser[posX][posY] == -1)
-			this.boardUser[posX][posY] = this.board[posX][posY];
 		}
 	}
-	
-	
 
 }
