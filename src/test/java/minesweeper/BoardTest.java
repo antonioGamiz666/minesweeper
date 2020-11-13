@@ -90,14 +90,14 @@ public class BoardTest {
 		testBoard.setBoard(inputTest);
 										  			
 		//test if there is a bomb
-		assertTrue("EP", testBoard.checkTopMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkTopRightMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkRightMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkBottomRightMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkBottomMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkBottomLeftMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkLeftMines(1, 1) != 1);
-		assertTrue("EP", testBoard.checkTopLeftMines(1, 1) != 1);
+		assertTrue("EP", testBoard.checkTopMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkTopRightMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkRightMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkBottomRightMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkBottomMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkBottomLeftMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkLeftMines(1, 1) == 1);
+		assertTrue("EP", testBoard.checkTopLeftMines(1, 1) == 1);
 	}
 	
 	@Test
@@ -318,6 +318,7 @@ public class BoardTest {
 	
 	@Test
 	public void testopenCell() {
+		//TDD
 		Board testboard10 = new Board(1);
 		int [][] input = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
 									 {9, 9, 2, 0, 0, 2, 9, 9},
@@ -371,10 +372,17 @@ public class BoardTest {
 		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu1, v);
 		
-		//TDD for opening a mine and losing
+		//----TDD for opening a mine and losing
 		testboard11.openCell(0, 1);
 		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
+		
+		//----Equivalence partitioning
+		//We already tested for a valid inputs
+		//Now we are going to test invalid inputs
+		testboard11.openCell(-1, -1);
+		testboard11.openCell(-1, 3);
+		testboard11.openCell(8, 8);
 		
 		
 	
