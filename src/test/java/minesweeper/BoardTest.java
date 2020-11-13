@@ -390,14 +390,57 @@ public class BoardTest {
 		//Now we are going to test invalid inputs
 		//we should get the same out as the last one due to not opnening invalid values
 		testboard11.openCell(-1, -1);
+		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
+		
+		testboard11.openCell(3, -1);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
+		
 		testboard11.openCell(-1, 3);
+		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
+		
 		testboard11.openCell(8, 8);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
+		
+		testboard11.openCell(0, 8);
+		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(7,7);
+		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu3,v);
+		
+		//---Statement coverage
+		int [][] input1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0},
+									 {0, 0, 0, 0, 0, 0, 0, 0}};
+		 int [][] ExpectedO3 = new int[][]  {{0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0},
+										 {0, 0, 0, 0, 0, 0, 0, 0}};								 
+									 
+    Board testboard12 = new Board(1);
+	testboard12.setBoard(input1);	
+    testboard12.openCell(0, 0);
+    testboard12.openCell(0, 7);	
+    testboard12.openCell(7, 0);	
+    testboard12.openCell(7, 7);	
+	int [][]z = new int[8][8];
+	z = testboard12.getBoardUser();
+	assertArrayEquals(ExpectedO3, z);								 
+	//testboard11.openCell(posX, posY);
 	
 	}
 
