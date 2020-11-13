@@ -17,16 +17,7 @@ public class Board {
 	private final int LVL1_ROWS = 8;
 	private final int LVL1_COLS = 8;
 	private final int LVL1_MINES = 10;
-	
-	private final int LVL2_ROWS = 16;
-	private final int LVL2_COLS = 16;
-	private final int LVL2_MINES = 40;
-
-	private final int LVL3_ROWS = 16;
-	private final int LVL3_COLS = 30;
-	private final int LVL3_MINES = 99;
-	
-	
+		
 	private final int Empty_cell_value = 0;
 	private final int Score_1_value = 1;
 	private final int Score_2_value = 2;
@@ -37,8 +28,7 @@ public class Board {
 	private final int number_Score_3 = 8;
 	
 	public final int Mine_value = 9;
-	
-	private final int Flag_value = 4;
+
 	
 	public void initMines() {
 		
@@ -237,30 +227,14 @@ public class Board {
 	
 	
 	
-	Board(int level){
+	Board(){
 		
-		switch(level) {
 		
-			case 1:
-				this.num_rows = LVL1_ROWS;
-				this.num_columns = LVL1_COLS;
-				this.num_mines = LVL1_MINES;
-				break;
-				
-			case 2:
-				this.num_rows = LVL2_ROWS;
-				this.num_columns = LVL2_COLS;
-				this.num_mines = LVL2_MINES;
-				break;
-				
-			case 3:
-				this.num_rows = LVL3_ROWS;
-				this.num_columns = LVL3_COLS;
-				this.num_mines = LVL3_MINES;
-				break;
 		
-		};
-
+		this.num_rows = LVL1_ROWS;
+		this.num_columns = LVL1_COLS;
+		this.num_mines = LVL1_MINES;
+		
 		
 		this.board = new int[num_rows][num_columns];
 		this.boardUser = new int[this.num_rows][this.num_columns];

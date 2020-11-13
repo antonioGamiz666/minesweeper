@@ -10,7 +10,7 @@ public class BoardTest {
 
 	@Test
 	public void testInitBoard() {//We should test the LVL value we give to the Board constructor
-		Board testboard = new Board(1); //8x8
+		Board testboard = new Board(); //8x8
 		
 		//----TDD TESTS
 		int[][] b = new int[8][8];
@@ -30,35 +30,13 @@ public class BoardTest {
 		
 		//----Equivalence partitioning
 		int lvl1_valid_dim = 8;
-		Board testboardlvl1 = new Board(1);
+		Board testboardlvl1 = new Board();
 		int[][] testdimlvl1 = new int[8][8];
 		//Do a getSize for the board matrix then make an assert equals
 		int lvl1_invalid_lower = 7;
 		int lvl1_invalid_higher = 9;
 		//assertTrue("Dimension for lvl1 matrix should be 8x8 instead of " + getSize, (getsize <= lvl1_invalid_lower) || ( getsize >= lvl1_invalid_higher));
-		
-		int lvl2_valid_dim = 16;
-		Board testboardlvl2 = new Board(2);
-		int[][] testdimlvl2 = new int[16][16];
-		//Do a getSize for the board matrix then make an assert equals
-		int lvl2_invalid_lower = 15;
-		int lvl2_invalid_higher = 17;
-		//assertTrue("Dimension for lvl2 matrix should be 16x16 instead of " + getSize, (getsize <= lvl2_invalid_lower) || ( getsize >= lvl2_invalid_higher));
-
-		
-		
-		int lvl3_valid_row = 16;
-		int lvl3_valid_col = 30;
-		Board testboardlvl3 = new Board(2);
-		int[][] testdimlvl3 = new int[16][30];
-		//Do a getSize for the board matrix then make an assert equals	
-		int lvl1_invalid_lower_row = 15;
-		int lvl1_invalid_higher_row = 17;
-		//assertTrue("Dimension for lvl3 matrix should be 16x30 instead of " + getSize, (getsize <= lvl3_invalid_lower_row) || ( getsize >= lvl3_invalid_higher_row));
-		int lvl1_invalid_lower_col = 39;
-		int lvl1_invalid_higher_col = 41;
-		//assertTrue("Dimension for lvl3 matrix should be 16x30 instead of " + getSize, (getsize <= lvl3_invalid_lower_col) || ( getsize >= lvl3_invalid_higher_col));
-		
+	
 		
 		
 		
@@ -86,7 +64,7 @@ public class BoardTest {
 										  {0, 0, 0, 0, 0, 0, 0, 0}, // we will use the position 6,6 to check when THERE ISN'T a mine
 										  {0, 0, 0, 0, 0, 0, 0, 0}};
 										  
-		Board testBoard = new Board(1);
+		Board testBoard = new Board();
 		testBoard.setBoard(inputTest);
 										  			
 		//test if there is a bomb
@@ -102,7 +80,7 @@ public class BoardTest {
 	
 	@Test
 	public void testInitBoard2() {
-		Board testboard = new Board(1);
+		Board testboard = new Board();
 		int [][] test1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
 									  {0, 0, 0, 0, 0, 0, 0, 0},
 									  {0, 0, 0, 0, 0, 0, 0, 0},
@@ -211,7 +189,7 @@ public class BoardTest {
 											 {0, 0, 0, 2, 9, 9, 9, 2},
 											 {0, 0, 0, 1, 2, 3, 2, 1}};
 		//test
-		Board testboard1 = new Board(1);
+		Board testboard1 = new Board();
 		testboard.setBoard(test1);
 		testboard.initBoard();
 		assertArrayEquals(testboard.getBoard(), expectedOut1);
@@ -236,7 +214,7 @@ public class BoardTest {
 	@Test
 	public void testInitMines() {
 		//----TDD TESTS
-		Board testboard1 = new Board(1);
+		Board testboard1 = new Board();
 		int m1[][] = testboard1.getBoard();
 		int mines1=0;
 		
@@ -251,35 +229,7 @@ public class BoardTest {
 		}
 		assertEquals(mines1,10);
 		
-		Board testboard2 = new Board(2);
-		int m2[][] = testboard2.getBoard();
-		int mines2=0;
 		
-		//Search for 40 mines
-		for(int x=0; x < 16; x++)
-		{
-			for(int y=0; y < 16; y++) {
-				if(m2[x][y]==9) {
-					mines2 = mines2+1;
-				}
-			}
-		}
-		assertEquals(mines2,40);
-		
-		Board testboard3 = new Board(3);
-		int m3[][] = testboard3.getBoard();
-		int mines3=0;
-		
-		//Search for 99 mines
-		for(int x=0; x < 16; x++)
-		{
-			for(int y=0; y < 30; y++) {
-				if(m3[x][y]==9) {
-					mines3 = mines3+1;
-				}
-			}
-		}
-		assertEquals(mines3,99);
 		//TDD TESTS----
 		
 		//----Equivalence partitioning
@@ -292,14 +242,7 @@ public class BoardTest {
 		int lvl1_invalid_lower = 9;
 		int lvl1_invalid_higher = 11;
 		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_lower) || (mines1 <= lvl1_invalid_higher));
-		//Lvl2 has 40 bombs, we should test if we have more or less than 40 and show an error if we have a case
-		int lvl2_invalid_lower = 39;
-		int lvl2_invalid_higher = 41;
-		assertTrue("Mines for lvl 2 should be 40 instead of " + mines2, (mines2 >= lvl2_invalid_lower) || (mines2 <= lvl2_invalid_higher));
-		//Lvl3 has 99 bombs, we should test if we have more or less than 99 and show an error if we have a case
-		int lvl3_invalid_lower = 98;
-		int lvl3_invalid_higher = 100;
-		assertTrue("Mines for lvl 3 should be 99 instead of " + mines3, (mines3 >= lvl3_invalid_lower) || (mines3 <= lvl3_invalid_higher));
+		
 		//Equivalence partitioning----
 		
 		//----Limit values
@@ -307,10 +250,6 @@ public class BoardTest {
 		//Min 0, 9(invalid), 10(valid)
 		
 		assertTrue("Test not passed due to the mine value beeing lower than the limit value", mines1 >= lvl1_invalid_lower);
-		//intermidiate 20, 39(invalid), 40 valid
-		assertTrue("Test not passed due to the mine value beeing lower than the mid term value", mines2 >= lvl2_invalid_lower);
-		//Max 100, 200(invalid), 99(valid)
-		assertTrue("Test not passed due to the mine value beeing higher than the limit value", mines2 <= lvl3_invalid_higher);
 		
 		
 		//Limit values----
@@ -319,7 +258,7 @@ public class BoardTest {
 	@Test
 	public void testopenCell() {
 		//TDD
-		Board testboard10 = new Board(1);
+		Board testboard10 = new Board();
 		int [][] input = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
 									 {9, 9, 2, 0, 0, 2, 9, 9},
 									 {2, 2, 1, 0, 0, 1, 2, 2},
@@ -372,7 +311,7 @@ public class BoardTest {
 		p = testboard10.getBoardUser();
 		assertArrayEquals(expectedOu, p);
 		
-		Board testboard11 = new Board(1);
+		Board testboard11 = new Board();
 		testboard11.setBoard(input);
 		int [][]v = new int[8][8];
 		testboard11.openCell(0, 0);	
@@ -431,7 +370,7 @@ public class BoardTest {
 										 {0, 0, 0, 0, 0, 0, 0, 0},
 										 {0, 0, 0, 0, 0, 0, 0, 0}};								 
 									 
-    Board testboard12 = new Board(1);
+    Board testboard12 = new Board();
 	testboard12.setBoard(input1);	
     testboard12.openCell(0, 0);
     testboard12.openCell(0, 7);	
