@@ -21,7 +21,7 @@ private static String number5 = "[5]";
 private static String number6 = "[6]";
 private static String number7 = "[7]";
 private static String number8 = "[8]";
-private static String flag = "[!]";
+
 
 
 
@@ -37,11 +37,11 @@ private static String flag = "[!]";
 		}
 		 
 		public void askPosX() {			
-			System.out.println("Introduce posX: ");			
+			System.out.println("Introduce row: ");			
 		}
 		
 		public void askPosY() {
-			System.out.println("Introduce posY: ");
+			System.out.println("Introduce column: ");
 		}
 		
 		public void printMatrix(int [][]userBoard) {
@@ -50,7 +50,7 @@ private static String flag = "[!]";
 				for ( int j = 0; j <= 8; j++) {
 					if(i == 0) {
 						if(j==0) {
-							System.out.print(" ");
+							System.out.print("       ");
 						}
 						else {
 							System.out.print("\t");
