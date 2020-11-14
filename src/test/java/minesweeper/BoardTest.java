@@ -81,15 +81,11 @@ public class BoardTest {
 	@Test
 	public void testInitBoard2() {
 		Board testboard = new Board();
-		int [][] test1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0}};
-									  
+		MockBoard mockboard = new MockBoard(); //to simulate random board placement
+		
+		//Test1
+		testboard.setBoard(mockboard.initMines(0));
+		testboard.initBoard();
 		int [][] expectedOut1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
 										     {0, 0, 0, 0, 0, 0, 0, 0},
 										     {0, 0, 0, 0, 0, 0, 0, 0},
@@ -98,16 +94,11 @@ public class BoardTest {
 										     {0, 0, 0, 0, 0, 0, 0, 0},
 										     {0, 0, 0, 0, 0, 0, 0, 0},
 										     {0, 0, 0, 0, 0, 0, 0, 0}};
-										     
-        int [][] test2 = new int[][] {{9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9},
-						        	  {9, 9, 9, 9, 9, 9, 9, 9}};
-						        	  
+		assertArrayEquals(testboard.getBoard(), expectedOut1);
+		
+		//Test2
+		testboard.setBoard(mockboard.initMines(1));
+		testboard.initBoard();
 		int [][] expectedOut2 = new int[][] {{9, 9, 9, 9, 9, 9, 9, 9},
       	  									 {9, 9, 9, 9, 9, 9, 9, 9},
       	  									 {9, 9, 9, 9, 9, 9, 9, 9},
@@ -115,17 +106,12 @@ public class BoardTest {
       	  									 {9, 9, 9, 9, 9, 9, 9, 9},
       	  									 {9, 9, 9, 9, 9, 9, 9, 9},
       	  									 {9, 9, 9, 9, 9, 9, 9, 9},
-      	  									 {9, 9, 9, 9, 9, 9, 9, 9}};;
-      	  									 
-		int [][] test3 = new int[][] {{9, 0, 0, 0, 0, 0, 0, 9},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0},
-									  {9, 0, 0, 0, 0, 0, 0, 9}};
-									  
+      	  									 {9, 9, 9, 9, 9, 9, 9, 9}};
+		assertArrayEquals(testboard.getBoard(), expectedOut2);  	
+      	 
+		//Test3
+		testboard.setBoard(mockboard.initMines(2));
+		testboard.initBoard();
 		int [][] expectedOut3 = new int[][] {{9, 1, 0, 0, 0, 0, 1, 9},
 											 {1, 1, 0, 0, 0, 0, 1, 1},
 											 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -134,16 +120,11 @@ public class BoardTest {
 											 {0, 0, 0, 0, 0, 0, 0, 0},
 											 {1, 1, 0, 0, 0, 0, 1, 1},
 											 {9, 1, 0, 0, 0, 0, 1, 9}};
-											 
-		int [][] test4 = new int[][] {{0, 9, 0, 0, 0, 0, 9, 0},
-			 						  {9, 9, 0, 0, 0, 0, 9, 9},
-			 						  {0, 0, 0, 0, 0, 0, 0, 0},
-			 						  {0, 0, 0, 0, 0, 0, 0, 0},
-			 						  {0, 0, 0, 0, 0, 0, 0, 0},
-			 						  {0, 0, 0, 0, 0, 0, 0, 0},
-			 						  {9, 9, 0, 0, 0, 0, 9, 9},
-			 						  {0, 9, 0, 0, 0, 0, 9, 0}};
-			 						   
+		assertArrayEquals(testboard.getBoard(), expectedOut3);	
+		
+		//Test4
+		testboard.setBoard(mockboard.initMines(3));
+		testboard.initBoard();
 		int [][] expectedOut4 = new int[][] {{3, 9, 2, 0, 0, 2, 9, 3},
 			 								 {9, 9, 2, 0, 0, 2, 9, 9},
 			 								 {2, 2, 1, 0, 0, 1, 2, 2},
@@ -151,17 +132,12 @@ public class BoardTest {
 			 								 {0, 0, 0, 0, 0, 0, 0, 0},
 			 								 {2, 2, 1, 0, 0, 1, 2, 2},
 			 								 {9, 9, 2, 0, 0, 2, 9, 9},
-			 								 {3, 9, 2, 0, 0, 2, 9, 3}};
-			 								  
-		int [][] test5 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 9, 9, 9, 9, 9, 9, 0},
-									  {0, 9, 0, 0, 0, 0, 9, 0},
-									  {0, 9, 0, 0, 0, 0, 9, 0},
-									  {0, 9, 0, 0, 0, 0, 9, 0},
-									  {0, 9, 0, 0, 0, 0, 9, 0},
-									  {0, 9, 9, 9, 9, 9, 9, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0}};
-									  
+			 								 {3, 9, 2, 0, 0, 2, 9, 3}};			 
+		assertArrayEquals(testboard.getBoard(), expectedOut4);
+		
+		//Test5
+		testboard.setBoard(mockboard.initMines(4));
+		testboard.initBoard();
 		int [][] expectedOut5 = new int[][] {{1, 2, 3, 3, 3, 3, 2, 1},
 											 {2, 9, 9, 9, 9, 9, 9, 2},
 											 {3, 9, 5, 3, 3, 5, 9, 3},
@@ -170,16 +146,11 @@ public class BoardTest {
 											 {3, 9, 5, 3, 3, 5, 9, 3},
 											 {2, 9, 9, 9, 9, 9, 9, 2},
 											 {1, 2, 3, 3, 3, 3, 2, 1}};
-											 
-		int [][] test6 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
-									  {0, 9, 9, 9, 0, 0, 0, 0},
-									  {0, 9, 0, 9, 0, 0, 0, 0},
-									  {0, 9, 9, 9, 0, 0, 0, 0},
-									  {0, 0, 0, 0, 9, 9, 9, 0},
-									  {0, 0, 0, 0, 9, 0, 9, 0},
-									  {0, 0, 0, 0, 9, 9, 9, 0},
-									  {0, 0, 0, 0, 0, 0, 0, 0}};
-									  
+		assertArrayEquals(testboard.getBoard(), expectedOut5);
+		
+		//Test6
+		testboard.setBoard(mockboard.initMines(5));
+		testboard.initBoard();
 		int [][] expectedOut6 = new int[][] {{1, 2, 3, 2, 1, 0, 0, 0},
 											 {2, 9, 9, 9, 2, 0, 0, 0},
 											 {3, 9, 8, 9, 3, 0, 0, 0},
@@ -188,25 +159,6 @@ public class BoardTest {
 											 {0, 0, 0, 3, 9, 8, 9, 3},
 											 {0, 0, 0, 2, 9, 9, 9, 2},
 											 {0, 0, 0, 1, 2, 3, 2, 1}};
-		//test
-		Board testboard1 = new Board();
-		testboard.setBoard(test1);
-		testboard.initBoard();
-		assertArrayEquals(testboard.getBoard(), expectedOut1);
-		testboard.setBoard(test2);
-		testboard.initBoard();
-		assertArrayEquals(testboard.getBoard(), expectedOut2);
-		testboard.setBoard(test3);
-		testboard.initBoard();
-		assertArrayEquals(testboard.getBoard(), expectedOut3);
-		testboard.setBoard(test4);
-		testboard.initBoard();
-		assertArrayEquals(testboard.getBoard(), expectedOut4);
-		testboard.setBoard(test5);
-		testboard.initBoard();
-		assertArrayEquals(testboard.getBoard(), expectedOut5);
-		testboard.setBoard(test6);
-		testboard.initBoard();
 		assertArrayEquals(testboard.getBoard(), expectedOut6);
 	}
 		 

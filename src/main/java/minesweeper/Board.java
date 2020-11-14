@@ -5,7 +5,7 @@ import java.util.Random;
 public class Board {
 	
 
-	private int[][] board;
+	protected int[][] board;
 	private int[][] boardUser;
 	public boolean lose;
 	
