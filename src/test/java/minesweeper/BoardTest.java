@@ -28,26 +28,25 @@ public class BoardTest {
 		//TDD TESTS----
 		
 		
-		//----Equivalence partitioning
+		//----Equivalence partitioning and limit values
 		int lvl1_valid_dim = 8;
 		Board testboardlvl1 = new Board();
 		int[][] testdimlvl1 = new int[8][8];
-		//Do a getSize for the board matrix then make an assert equals
+
+		assertEquals(testdimlvl1[0].length,testboardlvl1.num_rows);
+		assertEquals(testdimlvl1[1].length,testboardlvl1.num_columns);
 		int lvl1_invalid_lower = 7;
 		int lvl1_invalid_higher = 9;
-		//assertTrue("Dimension for lvl1 matrix should be 8x8 instead of " + getSize, (getsize <= lvl1_invalid_lower) || ( getsize >= lvl1_invalid_higher));
+		assertTrue("Dimension for lvl1 matrix should be 8x8 instead of having rows = " + testboardlvl1.num_rows, (testboardlvl1.num_rows > lvl1_invalid_lower) || ( testboardlvl1.num_rows < lvl1_invalid_higher));
+		assertTrue("Dimension for lvl1 matrix should be 8x8 instead of having columns =" + testboardlvl1.num_columns, (testboardlvl1.num_columns > lvl1_invalid_lower) || ( testboardlvl1.num_columns < lvl1_invalid_higher));
+
+		
+		
+		
+		//Equivalence partitioning and limit values----
+		
+		
 	
-		
-		
-		
-		//Equivalence partitioning----
-		
-		
-		//----Limit values
-		
-		
-		
-		//Limit values----
 	}
 	
 	@Test
@@ -76,6 +75,9 @@ public class BoardTest {
 		assertTrue("EP", testBoard.checkBottomLeftMines(1, 1) == 1);
 		assertTrue("EP", testBoard.checkLeftMines(1, 1) == 1);
 		assertTrue("EP", testBoard.checkTopLeftMines(1, 1) == 1);
+		
+		//Check if all of them combined work
+		assertEquals((testBoard.getAdjacent(1, 1)), 8);
 	}
 	
 	@Test
@@ -184,25 +186,16 @@ public class BoardTest {
 		
 		//TDD TESTS----
 		
-		//----Equivalence partitioning
+		//----Equivalence partitioning and limit values
 		//Already tested for the valid values on TDD tested
 		
-		//SHOULD WE DO A NEW TEST EXECUTION??
-		
-		//Now we want to test the invalid values, THROW EXCEPTION???
-		//Lvl1 has 10 bombs, we should test if we have more or less than 10 and show an error if we have a case
 		int lvl1_invalid_lower = 9;
 		int lvl1_invalid_higher = 11;
 		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_lower) || (mines1 <= lvl1_invalid_higher));
 		
-		//Equivalence partitioning----
+		//Equivalence partitioning and limit values----
 		
-		//----Limit values
-		//In this case we don't have a valid range, so we can only test individual numbers
-		//Min 0, 9(invalid), 10(valid)
-		
-		assertTrue("Test not passed due to the mine value beeing lower than the limit value", mines1 >= lvl1_invalid_lower);
-		
+
 		
 		//Limit values----
 	}
@@ -220,7 +213,8 @@ public class BoardTest {
 									 {9, 9, 2, 0, 0, 2, 9, 9},
 									 {3, 9, 2, 0, 0, 2, 9, 3}};
 			 
-		 testboard10.setBoard(input);
+		
+		 
 		 //Selecting any middle cell with value 0 should output the following matrix
 		 int [][] expectedOu = new int[][] {{-1, -1, 2, 0, 0, 2, -1, -1},
 										   {-1, -1, 2, 0, 0, 2, -1, -1},
@@ -230,6 +224,11 @@ public class BoardTest {
 										   {2, 2, 1, 0, 0, 1, 2, 2},
 										   {-1, -1, 2, 0, 0, 2, -1, -1},
 										   {-1, -1, 2, 0, 0, 2, -1, -1}};
+		testboard10.setBoard(input);								   
+	    testboard10.openCell(0, 3);									   
+		int [][]p = new int[8][8];
+		p = testboard10.getBoardUser();
+		assertArrayEquals(expectedOu, p);
 										   
 		int [][] expectedOu1 = new int[][] {{3, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
@@ -240,6 +239,14 @@ public class BoardTest {
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1}};
 										   
+	    Board testboard11 = new Board();
+		testboard11.setBoard(input);
+		int [][]v = new int[8][8];
+		testboard11.openCell(0, 0);	
+		
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu1, v); 
+										   
 	   int [][] expectedOu2  = new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
 										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
@@ -248,7 +255,12 @@ public class BoardTest {
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, 9, -1, -1, -1, -1, 9, -1}};
-										   
+
+	    //----TDD for opening a mine and losing
+		testboard11.openCell(0, 1);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
+											
 		int [][] expectedOu3= new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
 										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
@@ -258,24 +270,7 @@ public class BoardTest {
 										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, 9, -1, -1, -1, -1, 9, 3}};
 	   								   
-		testboard10.openCell(0, 3);									   
-		int [][]p = new int[8][8];
-		p = testboard10.getBoardUser();
-		assertArrayEquals(expectedOu, p);
-		
-		Board testboard11 = new Board();
-		testboard11.setBoard(input);
-		int [][]v = new int[8][8];
-		testboard11.openCell(0, 0);	
-		
-		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu1, v);
-		
-		//----TDD for opening a mine and losing
-		testboard11.openCell(0, 1);
-		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
-		
+
 		//----Equivalence partitioning and Limit values
 		//We already tested for a valid inputs
 		//Now we are going to test invalid inputs
@@ -322,16 +317,16 @@ public class BoardTest {
 										 {0, 0, 0, 0, 0, 0, 0, 0},
 										 {0, 0, 0, 0, 0, 0, 0, 0}};								 
 									 
-    Board testboard12 = new Board();
-	testboard12.setBoard(input1);	
-    testboard12.openCell(0, 0);
-    testboard12.openCell(0, 7);	
-    testboard12.openCell(7, 0);	
-    testboard12.openCell(7, 7);	
-	int [][]z = new int[8][8];
-	z = testboard12.getBoardUser();
-	assertArrayEquals(ExpectedO3, z);								 
-	//testboard11.openCell(posX, posY);
+	    Board testboard12 = new Board();
+		testboard12.setBoard(input1);	
+	    testboard12.openCell(0, 0);
+	    testboard12.openCell(0, 7);	
+	    testboard12.openCell(7, 0);	
+	    testboard12.openCell(7, 7);	
+		int [][]z = new int[8][8];
+		z = testboard12.getBoardUser();
+		assertArrayEquals(ExpectedO3, z);								 
+
 	
 	}
 
