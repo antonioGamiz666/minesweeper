@@ -36,20 +36,19 @@ public class Board {
 		
 		//We have a matrix columns x row, generate 2 random
 		//1 random for X and one for Y and generate until we place all the mines
-		
-		//This variable is to be able to control how many bombs left to allocate
-		int number_Mines_left = this.num_mines;		
-		
-		while(number_Mines_left > 0) {
-				
-			int posX = getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
-			int posY = getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
-			if(board[posX][posY] != Mine_value) { // If there isn't a mine yet on this random position, we place it
-				board[posX][posY] = Mine_value;
-				number_Mines_left--;
+		//check if num_mines is between 0 and 10 (max number of mines)
+		if(this.num_mines >= 0 && this.num_mines <= 10) {
+			//This variable is to be able to control how many bombs left to allocate
+			int number_Mines_left = this.num_mines;		
+			while(number_Mines_left > 0) {
+					
+				int posX = getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
+				int posY = getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
+				if(board[posX][posY] != Mine_value) { // If there isn't a mine yet on this random position, we place it
+					board[posX][posY] = Mine_value;
+					number_Mines_left--;
+				}
 			}
-		
-
 		}
 	}
 	
@@ -145,10 +144,12 @@ public class Board {
 
 	public void initBoard() {
 		
-		for(int i = 0; i < (this.num_rows); i++) {
-			for(int j = 0; j < (this.num_columns); j++) {
-				if( this.board[i][j] != this.Mine_value ) {
-					this.board[i][j] = getAdjacent(i,j);
+		if(this.num_rows == 8 && this.num_columns == 8) { //check that the dimensions are 8x8
+			for(int i = 0; i < (this.num_rows); i++) {
+				for(int j = 0; j < (this.num_columns); j++) {
+					if( this.board[i][j] != this.Mine_value ) {
+						this.board[i][j] = getAdjacent(i,j);
+					}
 				}
 			}
 		}
@@ -277,8 +278,8 @@ public class Board {
 		//if it's 0 and the cell its not opened yet
 			if( this.board[posX][posY] == this.Mine_value) {
 				this.lose=true;
-				for(int i=0; i< this.num_rows;i++) {
-					for(int j=0; j<this.num_columns;j++) {
+				for(int i=0; i < this.num_rows;i++) {
+					for(int j=0; j <this.num_columns;j++) {
 						if(this.board[i][j]==this.Mine_value) {
 							this.boardUser[i][j]=this.board[i][j];
 						}

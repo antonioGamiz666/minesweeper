@@ -29,7 +29,6 @@ public class GameController {
         
         int positionX = 0;
         int positionY = 0;
-        
 
         while(board.lose == false) {
             gv.printMatrix(board.getBoardUser());
