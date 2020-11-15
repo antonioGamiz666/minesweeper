@@ -256,7 +256,7 @@ public class BoardTest {
 		//between 0,0
 		assertTrue(Board.getRandomInteger(0,0) >= 0 && Board.getRandomInteger(0,0) <= 0);
 		//between 5,0
-		assertTrue(Board.getRandomInteger(5,0) >= 5 && Board.getRandomInteger(5,0) <= 0);
+		assertTrue(Board.getRandomInteger(5,0) == -1);
 	}
 	
 	@Test

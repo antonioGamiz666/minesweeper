@@ -40,7 +40,7 @@ public class Board {
 		//This variable is to be able to control how many bombs left to allocate
 		int number_Mines_left = this.num_mines;		
 		
-		while(number_Mines_left > 0 ) {
+		while(number_Mines_left > 0) {
 				
 			int posX = getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
 			int posY = getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
@@ -262,7 +262,11 @@ public class Board {
 	
 	public static int getRandomInteger(int min, int max) {
 		Random ran = new Random();
-		return ran.nextInt((max - min) + 1) + min;	
+		if(min <= max) { //check if 
+			return ran.nextInt((max - min) + 1) + min;	
+		} else {
+			return -1;
+		}
 	}
 	
 	public void openCell(int posX, int posY) {
