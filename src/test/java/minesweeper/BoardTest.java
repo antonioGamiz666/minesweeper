@@ -35,8 +35,13 @@ public class BoardTest {
 
 		assertEquals(testdimlvl1[0].length,testboardlvl1.num_rows);
 		assertEquals(testdimlvl1[1].length,testboardlvl1.num_columns);
+		int lvl1_invalid_superlower = -100;
+		int lvl1_invalid_superhigher = 99;
+		assertTrue("Dimension for lvl1 matrix should be 8x8 instead of having rows = " + testboardlvl1.num_rows, (testboardlvl1.num_rows > lvl1_invalid_superlower) || ( testboardlvl1.num_rows < lvl1_invalid_superhigher));
+
 		int lvl1_invalid_lower = 7;
 		int lvl1_invalid_higher = 9;
+		
 		assertTrue("Dimension for lvl1 matrix should be 8x8 instead of having rows = " + testboardlvl1.num_rows, (testboardlvl1.num_rows > lvl1_invalid_lower) || ( testboardlvl1.num_rows < lvl1_invalid_higher));
 		assertTrue("Dimension for lvl1 matrix should be 8x8 instead of having columns =" + testboardlvl1.num_columns, (testboardlvl1.num_columns > lvl1_invalid_lower) || ( testboardlvl1.num_columns < lvl1_invalid_higher));
 
@@ -189,6 +194,10 @@ public class BoardTest {
 		//----Equivalence partitioning and limit values
 		//Already tested for the valid values on TDD tested
 		
+		int lvl1_invalid_superlower = 0;
+		int lvl1_invalid_superhigher = 100;
+		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_superlower) || (mines1 <= lvl1_invalid_superhigher));
+
 		int lvl1_invalid_lower = 9;
 		int lvl1_invalid_higher = 11;
 		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_lower) || (mines1 <= lvl1_invalid_higher));
@@ -197,7 +206,7 @@ public class BoardTest {
 		
 
 		
-		//Limit values----
+	
 	}
 	
 	@Test
@@ -276,6 +285,14 @@ public class BoardTest {
 		//Now we are going to test invalid inputs
 		//we should get the same out as the last one due to not opnening invalid values
 		testboard11.openCell(-1, -1);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
+		
+		testboard11.openCell(-100, -100);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
+		
+		testboard11.openCell(100, 100);
 		v = testboard11.getBoardUser();
 		assertArrayEquals(expectedOu2,v);
 		
