@@ -143,8 +143,6 @@ public class Board {
 		this.openCell(posX+1,posY-1); 
 	}
 
-	
-	
 	public void initBoard() {
 		
 		for(int i = 0; i < (this.num_rows); i++) {
