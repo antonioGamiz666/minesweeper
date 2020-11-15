@@ -8,9 +8,11 @@ public class Board {
 	protected int[][] board;
 	private int[][] boardUser;
 	public boolean lose;
+	public boolean win;
+	public int opned;
 	
-	private int num_rows;
-	private int num_columns;
+	public int num_rows;
+	public int num_columns;
 
 	private int num_mines;
 	
@@ -154,7 +156,7 @@ public class Board {
 		}
 	}
 	
-	private int getAdjacent(int posX, int posY) {
+	public int getAdjacent(int posX, int posY) {
 		int value = 0;		
 		if( posX == 0 ) { //first row
 			if( posY == 0 ) {
@@ -239,6 +241,8 @@ public class Board {
 		this.board = new int[num_rows][num_columns];
 		this.boardUser = new int[this.num_rows][this.num_columns];
 		this.lose=false;
+		this.win=false;
+		this.opned=0;
 		this.initMines();
 		this.initBoard();
 		for(int i=0; i< this.num_rows; i++) {
@@ -290,7 +294,8 @@ public class Board {
 			}else {
 			
 				if(board[posX][posY] == this.Empty_cell_value && boardUser[posX][posY] == -1) {
-					this.boardUser[posX][posY] = 0;
+					this.boardUser[posX][posY] = this.Empty_cell_value;
+					
 					if( posX == 0 ) { //first row
 						if( posY == 0 ) {
 							//top left corner
