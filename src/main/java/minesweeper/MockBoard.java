@@ -68,7 +68,7 @@ public class MockBoard extends Board {
 					  				{0, 0, 0, 0, 0, 0, 0, 0},
 					  				{66, 0, 0, 0, 80, 0, 0, 0}};
 				
-			default:
+			default: //testing board without mines
 				return new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
 					  				{0, 0, 0, 0, 0, 0, 0, 0},
 					  				{0, 0, 0, 0, 0, 0, 0, 0},

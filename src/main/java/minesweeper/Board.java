@@ -227,10 +227,7 @@ public class Board {
 	
 	
 	
-	Board(){
-		
-		
-		
+	Board() {	
 		this.num_rows = LVL1_ROWS;
 		this.num_columns = LVL1_COLS;
 		this.num_mines = LVL1_MINES;
@@ -258,22 +255,16 @@ public class Board {
 		return this.boardUser;
 	}
 	
-	
 	public int setBoard(int[][] b) {
 		this.board  = b;
 		return 0;
 	}
 	
-	
 	public static int getRandomInteger(int min, int max) {
-		
 		Random ran = new Random();
-		return ran.nextInt((max - min) + 1) + min;
-		
+		return ran.nextInt((max - min) + 1) + min;	
 	}
 	
-
-
 	public void openCell(int posX, int posY) {
 		//Create a new board in the class, and with
 		//the recurse function we can fill it every time

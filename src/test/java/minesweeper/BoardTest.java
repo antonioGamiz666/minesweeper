@@ -53,6 +53,7 @@ public class BoardTest {
 	public void testInitBoard2() { //STATEMENT COVERAGE, LIMIT VALUES, EQUIVALENCE PARTITIONING
 		Board testboard = new Board();
 		MockBoard mockboard = new MockBoard(); //to simulate random bomb placement (initMines Mock)
+		//With this test we check initBoard and getAdjacents, as one is part of the other
 		
 		//Test1:
 		//In order to check limit values, we use the mock initMines to init the board without mines
@@ -165,9 +166,12 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testAdjacentMineChecks() {
-		//testing checkRightMines, checkLeftMines, checkTopMines, checkBottomMines, checkTopRightMines, checkTopLeftMines, checkBottomRightMines, checkBottomLeftMines
-		//this functions only will return a 1 if there is a mine on the position it's checking. for example, checkRight will return a 1 if there is a mine right to the cell or a 0 if not
+	public void testCheckMines() {
+		//testing checkRightMines, checkLeftMines, checkTopMines, checkBottomMines, 
+		//checkTopRightMines, checkTopLeftMines, checkBottomRightMines, checkBottomLeftMines
+		
+		//this functions will only return a 1 if there is a mine on the position it's checking
+		//for example, checkRight will return a 1 if there is a mine right to the cell or a 0 if not
 				
 		int [][] inputTest = new int[][] {{9, 9, 9, 0, 0, 0, 0, 0}, // we will use the position 1,1 to check when THERE IS a mine
 										  {9, 0, 9, 0, 0, 0, 0, 0},
@@ -181,22 +185,30 @@ public class BoardTest {
 		Board testBoard = new Board();
 		testBoard.setBoard(inputTest);
 										  			
-		//test if there is a bomb
-		assertTrue("EP", testBoard.checkTopMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkTopRightMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkRightMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkBottomRightMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkBottomMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkBottomLeftMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkLeftMines(1, 1) == 1);
-		assertTrue("EP", testBoard.checkTopLeftMines(1, 1) == 1);
+		//To test if there is a mine, we compare the output of each function checking 1,1 with 1
+		assertEquals(testBoard.checkTopMines(1, 1), 1);
+		assertEquals(testBoard.checkTopRightMines(1, 1), 1);
+		assertEquals(testBoard.checkRightMines(1, 1), 1);
+		assertEquals(testBoard.checkBottomRightMines(1, 1), 1);
+		assertEquals(testBoard.checkBottomMines(1, 1), 1);
+		assertEquals(testBoard.checkBottomLeftMines(1, 1), 1);
+		assertEquals(testBoard.checkLeftMines(1, 1), 1);
+		assertEquals(testBoard.checkTopLeftMines(1, 1), 1);
 		
-		//Check if all of them combined work
+		//To test if there isn't a mine, we compare the output of each function checking 6,6 with 0
+		assertEquals(testBoard.checkTopMines(6, 6), 0);
+		assertEquals(testBoard.checkTopRightMines(6, 6), 0);
+		assertEquals(testBoard.checkRightMines(6, 6), 0);
+		assertEquals(testBoard.checkBottomRightMines(6, 6), 0);
+		assertEquals(testBoard.checkBottomMines(6, 6), 0);
+		assertEquals(testBoard.checkBottomLeftMines(6, 6), 0);
+		assertEquals(testBoard.checkLeftMines(6, 6), 0);
+		assertEquals(testBoard.checkTopLeftMines(6, 6), 0);
+		
+		//Check if all of them combined work (getAdjacent)
 		assertEquals((testBoard.getAdjacent(1, 1)), 8);
+		assertEquals((testBoard.getAdjacent(6, 6)), 0);
 	}
-	
-	
-		 
 	
 	@Test
 	public void testInitMines() {
@@ -206,7 +218,7 @@ public class BoardTest {
 		int mines1=0;
 		
 		//Search for 10 mines
-		for(int i=0; i < 8; i++)//make a function???
+		for(int i=0; i < 8; i++)
 		{
 			for(int j=0; j < 8; j++) {
 				if(m1[i][j]==9) {
@@ -231,10 +243,20 @@ public class BoardTest {
 		assertTrue("Mines for lvl 1 should be 10 instead of " + mines1, (mines1 >= lvl1_invalid_lower) || (mines1 <= lvl1_invalid_higher));
 		
 		//Equivalence partitioning and limit values----
-		
-
-		
+	}
 	
+	@Test
+	public void testGetRandomInteger() {
+		Board testboard = new Board();
+		
+		//between 0,5
+		assertTrue(Board.getRandomInteger(0,5) >= 0 && Board.getRandomInteger(0,5) <= 5);
+		//between 0,1
+		assertTrue(Board.getRandomInteger(0,1) >= 0 && Board.getRandomInteger(0,1) <= 1);
+		//between 0,0
+		assertTrue(Board.getRandomInteger(0,0) >= 0 && Board.getRandomInteger(0,0) <= 0);
+		//between 5,0
+		assertTrue(Board.getRandomInteger(5,0) >= 5 && Board.getRandomInteger(5,0) <= 0);
 	}
 	
 	@Test
