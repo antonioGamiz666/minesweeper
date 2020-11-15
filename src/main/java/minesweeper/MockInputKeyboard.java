@@ -12,14 +12,14 @@ public class MockInputKeyboard extends InputKeyboard{
 		this.mockInput = inputs;
 		this.pos = 0;
 	}
-	
+		
 	public int read() {
 		if(this.pos < this.mockInput.length) {
 			this.pos++;
 			return this.mockInput[this.pos - 1];
 			
 		} else {
-			return -3; //we send a -3 if we don't have more inputs to send
+			return -67; //we send a -67 if we don't have more inputs to send
 		}
 	}
 }

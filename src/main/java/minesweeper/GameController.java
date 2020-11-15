@@ -2,16 +2,66 @@ package minesweeper;
 import java.util.Scanner;
 
 public class GameController {
-	
-	Scanner input = new Scanner(System.in);
-	
-	public int write() {
-		int number = input.nextInt();
-		return number;
-	}
-	
-	public static void main(String[] args) {
-		
-	}
+
+    public int positionX=0;
+    public int positionY=0;
+
+//    public int write() {
+//        Scanner input = new Scanner(System.in);
+//        int number = input.nextInt();
+//        return number;
+//
+//    }
+
+
+    public void requestPosX(GameView gameview, InputKeyboard input) {
+        //Requests the view to ask for new positionX
+        int aux=-1;
+        while(aux > 7 || aux < 0) {
+        	//if(input instanceof MockInputKeyboard && input.read() == -67)
+            gameview.askPosX();
+            aux=input.read();
+
+        }
+        this.positionX=aux;
+    }
+
+    public void requestPosY(GameView gameview, InputKeyboard input) {
+        //Requests the view to ask for new positionY
+        int aux=-1;
+        while(aux > 7 || aux < 0) {
+            gameview.askPosY();
+            aux=input.read();
+        }
+        this.positionY=aux;
+    }
+
+    public void UpdateModel(int posX, int posY, Board board) {
+        //Updates the game by sending those positions to the Model
+        //Calling openCell with the new positions?
+        board.openCell(posX, posY);
+
+    }
+
+    public void UpdateView(GameView gameview, Board board) {
+        //Telling the view to print the new matrix
+        //Calling the printMatrix from the view?
+        gameview.printMatrix(board.getBoardUser());
+    }
+
+    public void main(String[] args) {
+        Board game = new Board();
+        GameView gv = new GameView();
+        InputKeyboard input = new InputKeyboard();
+
+        while(game.lose==false || game.win==false) {
+            this.UpdateView(gv,game);
+            this.requestPosX(gv, input);
+            this.requestPosY(gv, input);
+            this.UpdateModel(this.positionX, this.positionY, game);
+        }
+        this.UpdateView(gv,game);
+        gv.gameOver();
+    }
 
 }
