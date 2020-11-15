@@ -8,29 +8,20 @@ import java.io.*;
 
 public class GameView {
 	
-public static String[][] field = new String[9][9];
-
-private static String closedcell = "[ ]";
-private static String openedcell_empty = "[_]";
-private static String openedcell_mine = "[X]";
-private static String number1 = "[1]";
-private static String number2 = "[2]";
-private static String number3 = "[3]";
-private static String number4 = "[4]";
-private static String number5 = "[5]";
-private static String number6 = "[6]";
-private static String number7 = "[7]";
-private static String number8 = "[8]";
-
-
-
-
-	
-
+		public static String[][] field = new String[9][9];
 		
-		//while no se acabe el juego
-		//preguntar posicion -> meter posicion por teclado 
-
+		private static String closedcell = "[?]";
+		private static String openedcell_empty = "[_]";
+		private static String openedcell_mine = "[X]";
+		private static String number1 = "[1]";
+		private static String number2 = "[2]";
+		private static String number3 = "[3]";
+		private static String number4 = "[4]";
+		private static String number5 = "[5]";
+		private static String number6 = "[6]";
+		private static String number7 = "[7]";
+		private static String number8 = "[8]";
+		
 		
 		public void gameOver() {
 			System.out.println("Game Over");
