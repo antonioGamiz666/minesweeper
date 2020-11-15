@@ -9,13 +9,18 @@ import org.junit.Test;
 public class GameControllerTest {
 	
 	@Test
-	public void test_updateMatrix() {
-		GameController test_gc = new GameController();
+	public void requestPosX() {
+		Board game = new Board();
+		GameController test_gc1 = new GameController();
+		GameView gv = new GameView();
+		
+		test_gc1.main(null);
+	
 		
 	}
 	
 	@Test
-	public void test_updateView() {
+	public void requestPosY() {
 		GameController test_gc = new GameController();
 		
 		//test_gc.updateView();
