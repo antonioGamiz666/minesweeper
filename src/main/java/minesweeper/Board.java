@@ -231,8 +231,6 @@ public class Board {
 			value += this.checkTopRightMines(posX, posY);
 			value += this.checkBottomRightMines(posX, posY);
 		}
-		
-		
 		return value;
 	}
 		
