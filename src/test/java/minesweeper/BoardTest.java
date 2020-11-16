@@ -284,6 +284,33 @@ public class BoardTest {
 	}
 	
 	@Test
+	public void pathCoverageInitMines() {
+		Board testboard = new Board();
+		// 10 arches - 8 nodes + 2 = 4 paths
+		
+		// 1,2,8
+		testboard.setMines(11);
+		testboard.initMines();
+		// 1,2,3,4,8
+		testboard.setMines(0);
+		testboard.initMines();
+		// 1,2,3,4,5,6,7,4,8
+		testboard.setMines(1);
+		testboard.initMines();
+		// 1,2,3,4,5,6,4,5,6,7,4,8
+		testboard.setMines(1);
+		int [][] inputTest = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
+		testboard.setBoard(inputTest);
+	}
+	
+	@Test
 	public void conditionDecisionInitBoard() {
 		Board testboard = new Board();
 		//this.num_rows == 8 / this.num_columns == 8 
