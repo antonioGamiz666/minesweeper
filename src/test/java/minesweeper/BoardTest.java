@@ -469,13 +469,13 @@ public class BoardTest {
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1}};
 										   
-	    Board testboard11 = new Board();
-		testboard11.setBoard(input);
-		int [][]v = new int[8][8];
-		testboard11.openCell(0, 0);	
+	    Board testboard13 = new Board();
+		testboard13.setBoard(input);
+		int [][]l = new int[8][8];
+		testboard13.openCell(0, 0);	
 		
-		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu1, v); 
+		l = testboard13.getBoardUser();
+		assertArrayEquals(expectedOu1, l); 
 										   
 	   int [][] expectedOu2  = new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
 										   {9, 9, -1, -1, -1, -1, 9, 9},
@@ -487,55 +487,68 @@ public class BoardTest {
 										   {-1, 9, -1, -1, -1, -1, 9, -1}};
 
 	    //----TDD for opening a mine and losing
-		testboard11.openCell(0, 1);
-		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		testboard13.openCell(0, 1);
+		l = testboard13.getBoardUser();
+		assertArrayEquals(expectedOu2,l);
 											
-		int [][] expectedOu3= new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
-										   {9, 9, -1, -1, -1, -1, 9, 9},
+		int [][] expectedOu3= new int[][] {{-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
-										   {9, 9, -1, -1, -1, -1, 9, 9},
-										   {-1, 9, -1, -1, -1, -1, 9, 3}};
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1},
+										   {-1, -1, -1, -1, -1, -1, -1, -1}};
 	   								   
 
 		//----Equivalence partitioning and Limit values
 		//We already tested for a valid inputs
 		//Now we are going to test invalid inputs
 		//we should get the same out as the last one due to not opnening invalid values
+		Board testboard11 = new Board();
+		testboard11.setBoard(input);
+		int [][]v = new int[8][8];	
 		testboard11.openCell(-1, -1);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(-100, -100);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(100, 100);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(3, -1);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(-1, 3);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(8, 8);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		testboard11.openCell(0, 8);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu2,v);
+		assertArrayEquals(expectedOu3,v);
+		
+		int [][] expectedOu4= new int[][] {{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, -1},
+			   								{-1, -1, -1, -1, -1, -1, -1, 3}};
+		
 		
 		testboard11.openCell(7,7);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu4,v);
 		
 		//---Statement coverage
 		int [][] input1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
