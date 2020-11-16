@@ -291,12 +291,15 @@ public class BoardTest {
 		// 1,2,8
 		testboard.setMines(11);
 		testboard.initMines();
+		
 		// 1,2,3,4,8
 		testboard.setMines(0);
 		testboard.initMines();
+		
 		// 1,2,3,4,5,6,7,4,8
 		testboard.setMines(1);
 		testboard.initMines();
+		
 		// 1,2,3,4,5,6,4,5,6,7,4,8
 		testboard.setMines(1);
 		int [][] inputTest = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0},
@@ -308,6 +311,35 @@ public class BoardTest {
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
 		testboard.setBoard(inputTest);
+	}
+	
+	@Test
+	public void loopTestingInitMines() {
+		// max iterations = 10 (n)
+		int [][] inputTest = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
+		Board testboard = new Board();
+		testboard.setBoard(inputTest);
+		testboard.setMines(0); // avoid loop
+		testboard.initMines();
+		testboard.setMines(1); // 1 iteration
+		testboard.initMines();
+		testboard.setBoard(inputTest); // restart board
+		testboard.setMines(2); // 2 iterations
+		testboard.initMines();
+		testboard.setBoard(inputTest); // restart board
+		testboard.setMines(5); // 5 iterations (5 < max iterations(10))
+		testboard.initMines();
+		testboard.setBoard(inputTest);
+		testboard.setMines(9); // 9 iterations (n-1)
+		testboard.initMines();
+		
 	}
 	
 	@Test
@@ -336,8 +368,6 @@ public class BoardTest {
 	
 	@Test
 	public void testGetRandomInteger() {
-		Board testboard = new Board();
-		
 		//between 0,5
 		assertTrue(Board.getRandomInteger(0,5) >= 0 && Board.getRandomInteger(0,5) <= 5);
 		//between 0,1
@@ -485,10 +515,6 @@ public class BoardTest {
 	    testboard12.openCell(7, 7);	
 		int [][]z = new int[8][8];
 		z = testboard12.getBoardUser();
-		assertArrayEquals(ExpectedO3, z);								 
-
-	
+		assertArrayEquals(ExpectedO3, z);
 	}
-
-
 }
