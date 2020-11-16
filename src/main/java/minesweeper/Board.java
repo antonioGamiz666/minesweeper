@@ -2,7 +2,7 @@ package minesweeper;
 
 import java.util.Arrays;
 import java.util.Random;
-public class Board {
+public class Board { // (Game Model)
 	
 
 	protected int[][] board;
