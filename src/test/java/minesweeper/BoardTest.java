@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 public class BoardTest {
-
+	
 	@Test
 	public void testInitBoard() {
 		Board testboard = new Board(); //8x8
@@ -250,58 +250,95 @@ public class BoardTest {
 		//Condition and Decision coverage of initMines
 		Board testboard = new Board();
 		
-		//this.num_mines >= 0 / this.num_mines <= 10
-		testboard.setMines(5); //true true
-		testboard.initMines();
-		testboard.setMines(-1); //false true
-		testboard.initMines();
-		testboard.setMines(11); //true false
-		//false false is impossible
-		
-		//this.num_mines >= 0 && this.num_mines <= 10
-		testboard.setMines(-1); // FALSE
-		testboard.initMines();
-		testboard.setMines(10); // TRUE
-		testboard.initMines();
-		
-		//number_Mines_left > 0
-		testboard.setMines(1); //true
-		testboard.initMines();
-		testboard.setMines(0); //false
-		testboard.initMines();		
-		
-		//board[posX][posY] != Mine_value
-		int [][] inputTest = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0}, //the position 0,0 will cause a FALSE
-										  {0, 0, 0, 0, 0, 0, 0, 0}, //the position 0,1 will cause a TRUE
+		int [][] inputTest1= new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0},
 										  {0, 0, 0, 0, 0, 0, 0, 0}};
-		testboard.setMines(10);
-		testboard.setBoard(inputTest);
+		
+		//this.num_mines >= 0 / this.num_mines <= 10
+		testboard.setMines(5); //true true
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		testboard.setMines(-1); //false true
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		testboard.setMines(11); //true false
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		//false false is impossible
+		
+		//this.num_mines >= 0 && this.num_mines <= 10
+		testboard.setMines(-1); // FALSE
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		testboard.setMines(10); // TRUE
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		
+		//number_Mines_left > 0
+		testboard.setMines(1); //true
+		testboard.initMines();
+		testboard.setBoard(inputTest1);
+		testboard.setMines(0); //false
+		testboard.initMines();	
+		testboard.setBoard(inputTest1);
+		
+		//board[posX][posY] != Mine_value
+		int [][] inputTest2 = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0}, //the position 0,0 will cause a FALSE
+										  {0, 0, 0, 0, 0, 0, 0, 0},  //the position 0,1 will cause a TRUE
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0}};
+		MockMyRandom rnd = new MockMyRandom(new int[] {0,0,1,1});
+		Board testboard2 = new Board(rnd);
+		testboard2.setBoard(inputTest2);
+		testboard2.setMines(1);
+		testboard2.initMines();
+		assertEquals(testboard2.getBoard()[0][0], 9);
+		assertEquals(testboard2.getBoard()[1][1], 9);
+		
 	}
 	
 	@Test
 	public void pathCoverageInitMines() {
 		Board testboard = new Board();
+		int [][] inputTest1= new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0},
+			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
+		testboard.setBoard(inputTest1);
 		// 10 arches - 8 nodes + 2 = 4 paths
 		
 		// 1,2,8
 		testboard.setMines(11);
 		testboard.initMines();
+		assertArrayEquals(testboard.getBoard(), inputTest1);
 		
 		// 1,2,3,4,8
+		testboard.setBoard(inputTest1);
 		testboard.setMines(0);
 		testboard.initMines();
+		assertArrayEquals(testboard.getBoard(), inputTest1);
 		
 		// 1,2,3,4,5,6,7,4,8
-		testboard.setMines(1);
-		testboard.initMines();
+		Board testboard2 = new Board(new MockMyRandom(new int[] {0,0}));
+		testboard2.setBoard(inputTest1);
+		testboard2.setMines(1);
+		testboard2.initMines();
+		assertEquals(testboard2.getBoard()[0][0], 9);
 		
 		// 1,2,3,4,5,6,4,5,6,7,4,8
-		testboard.setMines(1);
 		int [][] inputTest = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
@@ -310,14 +347,17 @@ public class BoardTest {
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
-		testboard.setBoard(inputTest);
-		testboard.initMines();//???
+		Board testboard3 = new Board(new MockMyRandom(new int[] {0,0,1,1}));
+		testboard3.setBoard(inputTest);
+		testboard3.setMines(1);
+		testboard3.initMines();
+		assertEquals(testboard3.getBoard()[1][1], 9);
 	}
 	
 	@Test
 	public void loopTestingInitMines() {
 		// max iterations = 10 (n)
-		int [][] inputTest = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
+		int [][] inputTest10 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
@@ -326,21 +366,44 @@ public class BoardTest {
 			  							  {0, 0, 0, 0, 0, 0, 0, 0},
 			  							  {0, 0, 0, 0, 0, 0, 0, 0}};
 		Board testboard = new Board();
-		testboard.setBoard(inputTest);
+		
+		testboard.setBoard(inputTest10);
 		testboard.setMines(0); // avoid loop
 		testboard.initMines();
+		assertArrayEquals(inputTest10, testboard.getBoard());
+		
+		testboard.setBoard(inputTest10);// restart board
 		testboard.setMines(1); // 1 iteration
 		testboard.initMines();
-		testboard.setBoard(inputTest); // restart board
-		testboard.setMines(2); // 2 iterations
-		testboard.initMines();
-		testboard.setBoard(inputTest); // restart board
-		testboard.setMines(5); // 5 iterations (5 < max iterations(10))
-		testboard.initMines();
-		testboard.setBoard(inputTest);
-		testboard.setMines(9); // 9 iterations (n-1)
-		testboard.initMines();
 		
+		Board testboard2 = new Board(new MockMyRandom(new int[] {0,0,1,1}));
+		testboard2.setBoard(inputTest10); // init board to 0
+		testboard2.setMines(2); // 2 iterations
+		testboard2.initMines();
+		assertEquals(testboard2.getBoard()[0][0], 9);
+		assertEquals(testboard2.getBoard()[1][1], 9);
+		
+		Board testboard3 = new Board(new MockMyRandom(new int[] {1,1,2,2,3,3,4,4,5,5}));
+		testboard3.setMines(5); // 5 iterations (5 < max iterations(10))
+		testboard3.initMines();
+		assertEquals(testboard3.getBoard()[1][1], 9);
+		assertEquals(testboard3.getBoard()[2][2], 9);
+		assertEquals(testboard3.getBoard()[3][3], 9);
+		assertEquals(testboard3.getBoard()[4][4], 9);
+		assertEquals(testboard3.getBoard()[5][5], 9);
+		
+		Board testboard4 = new Board(new MockMyRandom(new int[] {0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,0,7}));
+		testboard4.setMines(9); // 9 iterations (n-1)
+		testboard4.initMines();
+		assertEquals(testboard4.getBoard()[0][0], 9);
+		assertEquals(testboard4.getBoard()[1][1], 9);
+		assertEquals(testboard4.getBoard()[2][2], 9);
+		assertEquals(testboard4.getBoard()[3][3], 9);
+		assertEquals(testboard4.getBoard()[4][4], 9);
+		assertEquals(testboard4.getBoard()[5][5], 9);
+		assertEquals(testboard4.getBoard()[6][6], 9);	
+		assertEquals(testboard4.getBoard()[7][7], 9);	
+		assertEquals(testboard4.getBoard()[0][7], 9);	
 	}
 	
 	@Test
@@ -365,22 +428,6 @@ public class BoardTest {
 		testboard.setRows(1); //this.num_rows == 8 --> false
 		testboard.setColumns(1); //this.num_columns == 8 --> false
 		testboard.initBoard();
-	}
-	
-	@Test
-	public void testGetRandomInteger() {
-		//between 0,5
-		assertTrue(Board.getRandomInteger(0,5) >= 0 && Board.getRandomInteger(0,5) <= 5);
-		//between 0,1
-		assertTrue(Board.getRandomInteger(0,1) >= 0 && Board.getRandomInteger(0,1) <= 1);
-		//between 0,0
-		assertTrue(Board.getRandomInteger(0,0) >= 0 && Board.getRandomInteger(0,0) <= 0);
-		//between 5,0
-		assertTrue(Board.getRandomInteger(5,0) == -1);
-		//between -1,0
-		assertTrue(Board.getRandomInteger(-1,0) >= -1 && Board.getRandomInteger(-1,0) <= 0);
-		//between -2,-1
-		assertTrue(Board.getRandomInteger(-2,-1) >= -2 && Board.getRandomInteger(-2,-1) <= -1);
 	}
 	
 	@Test
@@ -422,13 +469,13 @@ public class BoardTest {
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1}};
 										   
-	    Board testboard13 = new Board();
-		testboard13.setBoard(input);
-		int [][]l = new int[8][8];
-		testboard13.openCell(0, 0);	
+	    Board testboard11 = new Board();
+		testboard11.setBoard(input);
+		int [][]v = new int[8][8];
+		testboard11.openCell(0, 0);	
 		
-		l = testboard13.getBoardUser();
-		assertArrayEquals(expectedOu1, l); 
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu1, v); 
 										   
 	   int [][] expectedOu2  = new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
 										   {9, 9, -1, -1, -1, -1, 9, 9},
@@ -440,68 +487,55 @@ public class BoardTest {
 										   {-1, 9, -1, -1, -1, -1, 9, -1}};
 
 	    //----TDD for opening a mine and losing
-		testboard13.openCell(0, 1);
-		l = testboard13.getBoardUser();
-		assertArrayEquals(expectedOu2,l);
+		testboard11.openCell(0, 1);
+		v = testboard11.getBoardUser();
+		assertArrayEquals(expectedOu2,v);
 											
-		int [][] expectedOu3= new int[][] {{-1, -1, -1, -1, -1, -1, -1, -1},
+		int [][] expectedOu3= new int[][] {{3, 9, -1, -1, -1, -1, 9, -1},
+										   {9, 9, -1, -1, -1, -1, 9, 9},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
 										   {-1, -1, -1, -1, -1, -1, -1, -1},
-										   {-1, -1, -1, -1, -1, -1, -1, -1},
-										   {-1, -1, -1, -1, -1, -1, -1, -1},
-										   {-1, -1, -1, -1, -1, -1, -1, -1}};
+										   {9, 9, -1, -1, -1, -1, 9, 9},
+										   {-1, 9, -1, -1, -1, -1, 9, 3}};
 	   								   
 
 		//----Equivalence partitioning and Limit values
 		//We already tested for a valid inputs
 		//Now we are going to test invalid inputs
 		//we should get the same out as the last one due to not opnening invalid values
-	    Board testboard11 = new Board();
-		testboard11.setBoard(input);
-		int [][]v = new int[8][8];	
-		
 		testboard11.openCell(-1, -1);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(-100, -100);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(100, 100);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(3, -1);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(-1, 3);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(8, 8);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(0, 8);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu3,v);
-		
-		int [][] expectedOu4= new int[][] {{-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, -1},
-			   {-1, -1, -1, -1, -1, -1, -1, 3}};
+		assertArrayEquals(expectedOu2,v);
 		
 		testboard11.openCell(7,7);
 		v = testboard11.getBoardUser();
-		assertArrayEquals(expectedOu4,v);
+		assertArrayEquals(expectedOu3,v);
 		
 		//---Statement coverage
 		int [][] input1 = new int[][] {{0, 0, 0, 0, 0, 0, 0, 0},
