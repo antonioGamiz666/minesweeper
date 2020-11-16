@@ -293,17 +293,17 @@ public class BoardTest {
 		
 		//this.num_rows == 8 / this.num_columns == 8 
 		testboard.setRows(8); //this.num_rows == 8 --> true
-		testboard.setColumns(1); //this.num_columns == 8 --> true
+		testboard.setColumns(1); //this.num_columns == 8 --> false
 		testboard.initBoard();
 		
 		//this.num_rows == 8 / this.num_columns == 8 
-		testboard.setRows(1); //this.num_rows == 8 --> true
+		testboard.setRows(1); //this.num_rows == 8 --> false
 		testboard.setColumns(8); //this.num_columns == 8 --> true
 		testboard.initBoard();
 		
 		//this.num_rows == 8 / this.num_columns == 8 
-		testboard.setRows(1); //this.num_rows == 8 --> true
-		testboard.setColumns(1); //this.num_columns == 8 --> true
+		testboard.setRows(1); //this.num_rows == 8 --> false
+		testboard.setColumns(1); //this.num_columns == 8 --> false
 		testboard.initBoard();
 	}
 	
