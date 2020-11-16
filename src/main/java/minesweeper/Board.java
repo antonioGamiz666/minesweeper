@@ -287,16 +287,7 @@ public class Board { // (Game Model)
 		this.board  = b;
 		return 0;
 	}
-	
-	public static int getRandomInteger(int min, int max) {
-		Random ran = new Random();
-		if(min <= max) { //check if the min number introduced is lower than the max
-			return ran.nextInt((max - min) + 1) + min;	
-		} else {
-			return -1;
-		}
-	}
-	
+		
 	public void openCell(int posX, int posY) {
 		//Create a new board in the class, and with
 		//the recurse function we can fill it every time
