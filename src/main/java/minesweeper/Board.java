@@ -10,6 +10,7 @@ public class Board { // (Game Model)
 	public boolean lose;
 	public boolean win;
 	public int opned;
+	protected MyRandom rnd;
 	
 	public int num_rows;
 	public int num_columns;
@@ -53,8 +54,8 @@ public class Board { // (Game Model)
 			int number_Mines_left = this.num_mines;		
 			while(number_Mines_left > 0) {
 					
-				int posX = getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
-				int posY = getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
+				int posX = this.rnd.getRandomInteger(0, this.num_rows - 1); // Random integer to the position X of the bomb
+				int posY = this.rnd.getRandomInteger(0, this.num_columns - 1); // Random integer to the position Y of the bomb
 				if(board[posX][posY] != Mine_value) { // If there isn't a mine yet on this random position, we place it
 					board[posX][posY] = Mine_value;
 					number_Mines_left--;
@@ -234,18 +235,38 @@ public class Board { // (Game Model)
 		return value;
 	}
 		
-	Board() {	
+	Board(){
 		this.num_rows = LVL1_ROWS;
 		this.num_columns = LVL1_COLS;
 		this.num_mines = LVL1_MINES;
 		
-		
+		this.rnd = new MyRandom();
 		this.board = new int[num_rows][num_columns];
 		this.boardUser = new int[this.num_rows][this.num_columns];
 		this.lose=false;
 		this.win=false;
 		this.opned=0;
 		this.initMines();
+		this.initBoard();
+		for(int i=0; i< this.num_rows; i++) {
+			for(int j=0; j<this.num_columns; j++) {
+				this.boardUser[i][j]=-1;
+			}
+		}
+	}
+	
+	Board(MyRandom rnd1) {	
+		this.num_rows = LVL1_ROWS;
+		this.num_columns = LVL1_COLS;
+		this.num_mines = LVL1_MINES;
+		
+		this.rnd = rnd1;
+		this.board = new int[num_rows][num_columns];
+		this.boardUser = new int[this.num_rows][this.num_columns];
+		this.lose=false;
+		this.win=false;
+		this.opned=0;
+		//this.initMines();
 		this.initBoard();
 		for(int i=0; i< this.num_rows; i++) {
 			for(int j=0; j<this.num_columns; j++) {
