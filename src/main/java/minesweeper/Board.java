@@ -31,6 +31,17 @@ public class Board {
 	
 	public final int Mine_value = 9;
 
+	public void setMines(int mines) {
+		this.num_mines = mines;
+	}
+	
+	public void setRows(int rows) {
+		this.num_rows = rows;
+	}
+	
+	public void setColumns(int columns) {
+		this.num_columns = columns;
+	}
 	
 	public void initMines() {
 		

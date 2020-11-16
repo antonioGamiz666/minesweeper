@@ -246,6 +246,68 @@ public class BoardTest {
 	}
 	
 	@Test
+	public void conditionDecisionInitMines() { 
+		//Condition and Decision coverage of initMines
+		Board testboard = new Board();
+		
+		//this.num_mines >= 0 / this.num_mines <= 10
+		testboard.setMines(5); //true true
+		testboard.initMines();
+		testboard.setMines(-1); //false true
+		testboard.initMines();
+		testboard.setMines(11); //true false
+		//false false is impossible
+		
+		//this.num_mines >= 0 && this.num_mines <= 10
+		testboard.setMines(-1); // FALSE
+		testboard.initMines();
+		testboard.setMines(10); // TRUE
+		testboard.initMines();
+		
+		//number_Mines_left > 0
+		testboard.setMines(1); //true
+		testboard.initMines();
+		testboard.setMines(0); //false
+		testboard.initMines();		
+		
+		//board[posX][posY] != Mine_value
+		int [][] inputTest = new int[][] {{9, 0, 0, 0, 0, 0, 0, 0}, //the position 0,0 will cause a FALSE
+										  {0, 0, 0, 0, 0, 0, 0, 0}, //the position 0,1 will cause a TRUE
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0},
+										  {0, 0, 0, 0, 0, 0, 0, 0}};
+		testboard.setMines(10);
+		testboard.setBoard(inputTest);
+	}
+	
+	@Test
+	public void conditionDecisionInitBoard() {
+		Board testboard = new Board();
+		//this.num_rows == 8 / this.num_columns == 8 
+		testboard.setRows(8); //this.num_rows == 8 --> true
+		testboard.setColumns(8); //this.num_columns == 8 --> true
+		testboard.initBoard();
+		
+		//this.num_rows == 8 / this.num_columns == 8 
+		testboard.setRows(8); //this.num_rows == 8 --> true
+		testboard.setColumns(1); //this.num_columns == 8 --> true
+		testboard.initBoard();
+		
+		//this.num_rows == 8 / this.num_columns == 8 
+		testboard.setRows(1); //this.num_rows == 8 --> true
+		testboard.setColumns(8); //this.num_columns == 8 --> true
+		testboard.initBoard();
+		
+		//this.num_rows == 8 / this.num_columns == 8 
+		testboard.setRows(1); //this.num_rows == 8 --> true
+		testboard.setColumns(1); //this.num_columns == 8 --> true
+		testboard.initBoard();
+	}
+	
+	@Test
 	public void testGetRandomInteger() {
 		Board testboard = new Board();
 		
@@ -257,6 +319,10 @@ public class BoardTest {
 		assertTrue(Board.getRandomInteger(0,0) >= 0 && Board.getRandomInteger(0,0) <= 0);
 		//between 5,0
 		assertTrue(Board.getRandomInteger(5,0) == -1);
+		//between -1,0
+		assertTrue(Board.getRandomInteger(-1,0) >= -1 && Board.getRandomInteger(-1,0) <= 0);
+		//between -2,-1
+		assertTrue(Board.getRandomInteger(-2,-1) >= -2 && Board.getRandomInteger(-2,-1) <= -1);
 	}
 	
 	@Test
